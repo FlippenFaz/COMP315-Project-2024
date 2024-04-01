@@ -3,10 +3,10 @@ Repository to store the code for the COMP315 Project at UKZN 2024
 
 A starting point for how we can possibly use this readme as a to-do list
 
-[ ] Images for Project
-[ ] Level ideas
-[ ] Question Bank
-[ ] GUI
+- [ ] Images for Project
+- [ ] Level ideas
+- [ ] Question Bank
+- [ ] GUI
 
 Assignment:
 
