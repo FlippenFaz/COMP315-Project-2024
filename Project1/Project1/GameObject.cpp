@@ -168,7 +168,7 @@ void GameObject::move(const Uint8* currentKeyStates)
 // Render function definition
 void GameObject::render()
 {
-    // Render the object
+    // Render the object 
 	
     //we can flip the man to run left if necessary
     if(flip && type == 0)
