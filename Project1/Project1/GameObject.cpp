@@ -5,6 +5,7 @@
 */
 
 #include <iostream>
+#include <vector>
 
 // Include necessary header files
 #include "GameObject.h"
@@ -12,7 +13,9 @@
 #include "Game.h"
 #include "Bullet.h"
 
-Bullet* bullet = nullptr;
+std::vector<Bullet*> bullets;
+
+int timeLastBullet = 0;
 
 // Constructor definition
 GameObject::GameObject(const char* textureSheet, SDL_Renderer* renderer, int x, int y, int type)
@@ -119,11 +122,14 @@ void GameObject::move(const Uint8* currentKeyStates)
             this->objTexture = TextureManager::LoadTexture("assets/shot_1t.png", renderer);
             srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / 5) % 4);
             
+            
             // Create a bullet
-            if (bullet == nullptr)
+            if (SDL_GetTicks() > (timeLastBullet + 200))
             {
-                bullet = new Bullet();
-                bullet->createBullet(this->renderer, this->xpos, this->ypos);
+                timeLastBullet = SDL_GetTicks();
+                Bullet* bulletptr = new Bullet();
+                bulletptr->createBullet(this->renderer, this->xpos, this->ypos);
+                bullets.push_back(bulletptr);
             }
         }
     }
@@ -140,13 +146,23 @@ void GameObject::move(const Uint8* currentKeyStates)
     destRect.y = ypos;
 
     // Update the bullets position
-    if (bullet != nullptr) {
-        bullet->update();
+    for (std::vector<Bullet*>::iterator it = bullets.begin(); it < bullets.end();) {
+        if (it == bullets.end()) {
+            break;
+        }
+        Bullet* bulletPtr = *it;
+        bulletPtr->update();
         // If the bullet has exceeded its range - DESTROY IT!
-        if (bullet->checkActiveBullet() == false)
+        if (bulletPtr->checkActiveBullet() == false)
         {
-            delete bullet;
-            bullet = nullptr;
+            bullets.erase(it);
+            it = bullets.begin();
+            //it--;
+            delete bulletPtr;
+            bulletPtr = nullptr;
+        }
+        if (it < bullets.end()) {
+            it++;
         }
     }
 }
@@ -155,7 +171,7 @@ void GameObject::render()
 {
     // Render the object
 	SDL_RenderCopy(this->renderer, objTexture, &srcRect, &destRect);
-    if (bullet != nullptr)
+    for (Bullet* bullet : bullets)
     {
         bullet->render();
     }
