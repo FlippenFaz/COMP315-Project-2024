@@ -14,6 +14,8 @@
 #include "Bullet.h"
 
 Bullet* bullet = nullptr;
+
+//used to possibly flip the player sprite
 bool flip;
 
 // Constructor definition
