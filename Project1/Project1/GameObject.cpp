@@ -2,6 +2,7 @@
   Edited by Avesh Ramavather (created),...
 
   [Add name above after editing]
+  Jaedon Naidu
 */
 
 #include <iostream>
@@ -13,6 +14,7 @@
 #include "Bullet.h"
 
 Bullet* bullet = nullptr;
+bool flip;
 
 // Constructor definition
 GameObject::GameObject(const char* textureSheet, SDL_Renderer* renderer, int x, int y, int type)
@@ -85,19 +87,22 @@ void GameObject::update()
 void GameObject::move(const Uint8* currentKeyStates)
 {
     // Handle keyboard inputs
-    if (currentKeyStates[SDL_SCANCODE_RIGHT])
+    // Only if the character isn't on the boundary of what's in-bounds
+    if (currentKeyStates[SDL_SCANCODE_RIGHT] && (xpos <= 380))
     {
+        flip = false;
         xpos += 5;
     }
-    if (currentKeyStates[SDL_SCANCODE_LEFT])
+    if (currentKeyStates[SDL_SCANCODE_LEFT] && xpos >= -50)
     {
+        flip = true;
         xpos -= 5;
     }
-    if (currentKeyStates[SDL_SCANCODE_UP])
+    if (currentKeyStates[SDL_SCANCODE_UP] && ypos >= 128)
     {
         ypos -= 5;
     }
-    if (currentKeyStates[SDL_SCANCODE_DOWN])
+    if (currentKeyStates[SDL_SCANCODE_DOWN] && ypos <= 495)
     {
         ypos += 5;
     }
@@ -111,12 +116,22 @@ void GameObject::move(const Uint8* currentKeyStates)
         SDL_DestroyTexture(objTexture);
         this->objTexture = TextureManager::LoadTexture("assets/idlet.png", renderer);
         srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / 100) % 8);
-
         if (currentKeyStates[SDL_SCANCODE_SPACE] != 0)
         {
             // Shoot animation - change 5 below to increase/decrease animation speed
             SDL_DestroyTexture(objTexture);
-            this->objTexture = TextureManager::LoadTexture("assets/shot_1t.png", renderer);
+
+            //if the bullet hasn't been shot yet then the space should trigger the shooting animation
+            if(bullet == nullptr)
+            {
+                this->objTexture = TextureManager::LoadTexture("assets/shot_1t.png", renderer);
+
+			//otherwise we won't allow the user to shoot so the shot animation should not fire
+            }else
+            {
+                this->objTexture = TextureManager::LoadTexture("assets/idlet.png", renderer);
+            }
+            
             srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / 5) % 4);
             
             // Create a bullet
@@ -154,7 +169,16 @@ void GameObject::move(const Uint8* currentKeyStates)
 void GameObject::render()
 {
     // Render the object
-	SDL_RenderCopy(this->renderer, objTexture, &srcRect, &destRect);
+	
+    //we can flip the man to run left if necessary
+    if(flip && type == 0)
+    {
+        SDL_RenderCopyEx(this->renderer, objTexture, &srcRect, &destRect, 0, 0, SDL_FLIP_HORIZONTAL);
+    }else
+    {
+        SDL_RenderCopy(this->renderer, objTexture, &srcRect, &destRect);
+    }
+
     if (bullet != nullptr)
     {
         bullet->render();

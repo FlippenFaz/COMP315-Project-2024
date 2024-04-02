@@ -48,7 +48,7 @@ void Bullet::createBullet(SDL_Renderer* renderer, int xpos, int ypos)
 void Bullet::update() 
 {
 	// Move bullet
-	destRect.x += 5;
+	destRect.x += 10;
 
 	// Check if bullet is out of bounds
 	if (destRect.x >= 550)
