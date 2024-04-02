@@ -17,6 +17,10 @@ Bullet* bullet = nullptr;
 
 //used to possibly flip the player sprite
 bool flip;
+bool reachedBottom;
+bool reachedTop;
+bool reachedLeft;
+bool reachedRight;
 
 // Constructor definition
 GameObject::GameObject(const char* textureSheet, SDL_Renderer* renderer, int x, int y, int type)
@@ -90,26 +94,59 @@ void GameObject::move(const Uint8* currentKeyStates)
 {
     // Handle keyboard inputs
     // Only if the character isn't on the boundary of what's in-bounds
-    if (currentKeyStates[SDL_SCANCODE_RIGHT] && (xpos <= 380))
+    if (currentKeyStates[SDL_SCANCODE_RIGHT])
     {
-        flip = false;
-        xpos += 5;
+        if (xpos <= 380)
+        {
+            flip = false;
+            reachedLeft = false;
+            xpos += 5;
+        }
+        else
+        {
+            reachedRight = true;
+        }
+
     }
-    if (currentKeyStates[SDL_SCANCODE_LEFT] && xpos >= -50)
+    if (currentKeyStates[SDL_SCANCODE_LEFT])
     {
-        flip = true;
-        xpos -= 5;
+        if (xpos >= -50)
+        {
+            flip = true;
+            reachedRight = false;
+            xpos -= 5;
+        }
+        else
+        {
+            reachedLeft = true;
+        }
     }
-    if (currentKeyStates[SDL_SCANCODE_UP] && ypos >= 128)
+    if (currentKeyStates[SDL_SCANCODE_UP])
     {
-        ypos -= 5;
+        if (ypos >= 128)
+        {
+            reachedBottom = false;
+            ypos -= 5;
+        }
+        else
+        {
+            reachedTop = true;
+        }
     }
-    if (currentKeyStates[SDL_SCANCODE_DOWN] && ypos <= 495)
+    if (currentKeyStates[SDL_SCANCODE_DOWN])
     {
-        ypos += 5;
+        if (ypos <= 495)
+        {
+            reachedTop = false;
+            ypos += 5;
+        }
+        else
+        {
+            reachedBottom = true;
+        }
     }
 
-    
+
     // Change texture based on keyboard input, used for implementing animations
     // Note: currentKeyStates[SDL_SCANCODE_RIGHT] == 0 is checking if the right arrow key is NOT being pressed
     if (currentKeyStates[SDL_SCANCODE_RIGHT] == 0 && currentKeyStates[SDL_SCANCODE_LEFT] == 0 && currentKeyStates[SDL_SCANCODE_UP] == 0 && currentKeyStates[SDL_SCANCODE_DOWN] == 0)
@@ -124,18 +161,19 @@ void GameObject::move(const Uint8* currentKeyStates)
             SDL_DestroyTexture(objTexture);
 
             //if the bullet hasn't been shot yet then the space should trigger the shooting animation
-            if(bullet == nullptr)
+            if (bullet == nullptr)
             {
                 this->objTexture = TextureManager::LoadTexture("assets/shot_1t.png", renderer);
 
-			//otherwise we won't allow the user to shoot so the shot animation should not fire
-            }else
+                //otherwise we won't allow the user to shoot so the shot animation should not fire
+            }
+            else
             {
                 this->objTexture = TextureManager::LoadTexture("assets/idlet.png", renderer);
             }
-            
+
             srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / 5) % 4);
-            
+
             // Create a bullet
             if (bullet == nullptr)
             {
@@ -147,9 +185,19 @@ void GameObject::move(const Uint8* currentKeyStates)
     else
     {
         // Run animation
-        SDL_DestroyTexture(objTexture);
-        this->objTexture = TextureManager::LoadTexture("assets/runt.png", renderer);
-        srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / 100) % 8);
+
+        if ((currentKeyStates[SDL_SCANCODE_RIGHT] != 0 && (!reachedRight))
+            || (currentKeyStates[SDL_SCANCODE_LEFT] != 0 && (!reachedLeft))
+            || (currentKeyStates[SDL_SCANCODE_UP] != 0 && (!reachedTop))
+            || (currentKeyStates[SDL_SCANCODE_DOWN] != 0 && (!reachedBottom)))
+        {
+            SDL_DestroyTexture(objTexture);
+            this->objTexture = TextureManager::LoadTexture("assets/runt.png", renderer);
+            srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / 100) % 8);
+        }else
+        {
+            this->objTexture = TextureManager::LoadTexture("assets/idlet.png", renderer);
+        }
     }
 
     // Update the position of the character
