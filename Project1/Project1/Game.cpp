@@ -68,7 +68,7 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 	// Creating game objects: 
 	
 	// Background 
-	back = new GameObject("assets/q1.png", renderer, 0, 0, 1);
+	back = new GameObject("assets/Gridlines.png", renderer, 0, 0, 1);
 
 	// Player
 	player = new GameObject("assets/idlet.png", renderer, 0, 0, 0);

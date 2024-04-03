@@ -67,7 +67,7 @@ void Bullet::update()
 	
 
 	// Check if bullet is out of bounds
-	if (destRect.x >= 550 || destRect.x <= -80)
+	if (destRect.x >= 900 || destRect.x <= -80)
 	{
 		checkActive = false;
 	}

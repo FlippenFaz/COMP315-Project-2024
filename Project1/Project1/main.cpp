@@ -25,7 +25,7 @@ int main(int argc, char* args[])
 	Game* game;
 	game = new Game();
 
-	game->initialize("Test Run", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, false);
+	game->initialize("Test Run", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, false);
 
 	// Keeps the game running until an intervention occurs
 	while (game->running())

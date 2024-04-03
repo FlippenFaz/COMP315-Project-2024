@@ -42,15 +42,15 @@ GameObject::GameObject(const char* textureSheet, SDL_Renderer* renderer, int x, 
     {   
         // Initial xpos = -50 and ypos = 128 compensates for the character sprite used, we can make it better
         xpos = -50;
-        ypos = 128;
+        ypos = 149;
 
         srcRect.h = 64;
         srcRect.w = 128;
         srcRect.y = 0;
 
         
-        destRect.h = srcRect.h * 1.5;
-        destRect.w = srcRect.w * 1.5;
+        destRect.h = srcRect.h * 1.8;
+        destRect.w = srcRect.w * 1.8;
     }
     // For backgrounds and overlays (type != 0) for now, we will add more stuff here
     else
@@ -59,8 +59,8 @@ GameObject::GameObject(const char* textureSheet, SDL_Renderer* renderer, int x, 
         xpos = x;
         ypos = y;
 
-        srcRect.h = 600;
-        srcRect.w = 800;
+        srcRect.h = 720;
+        srcRect.w = 1280;
         srcRect.x = 0;
         srcRect.y = 0;
 
@@ -96,7 +96,7 @@ void GameObject::move(const Uint8* currentKeyStates)
     // Only if the character isn't on the boundary of what's in-bounds
     if (currentKeyStates[SDL_SCANCODE_RIGHT])
     {
-        if (xpos <= 380)
+        if (xpos <= 700)
         {
             flip = false;
             reachedLeft = false;
@@ -123,7 +123,7 @@ void GameObject::move(const Uint8* currentKeyStates)
     }
     if (currentKeyStates[SDL_SCANCODE_UP])
     {
-        if (ypos >= 128)
+        if (ypos >= 150)
         {
             reachedBottom = false;
             ypos -= 5;
@@ -135,7 +135,7 @@ void GameObject::move(const Uint8* currentKeyStates)
     }
     if (currentKeyStates[SDL_SCANCODE_DOWN])
     {
-        if (ypos <= 495)
+        if (ypos <= 580)
         {
             reachedTop = false;
             ypos += 5;
@@ -166,11 +166,13 @@ void GameObject::move(const Uint8* currentKeyStates)
                 this->objTexture = TextureManager::LoadTexture("assets/shot_1t.png", renderer);
 
                 //otherwise we won't allow the user to shoot so the shot animation should not fire
+                // Issue above is that the shoot animation does not complete before going back to idle state (Avesh)
             }
             else
             {
                 this->objTexture = TextureManager::LoadTexture("assets/idlet.png", renderer);
             }
+
 
             srcRect.x = srcRect.w * static_cast<int>((SDL_GetTicks() / 5) % 4);
 
