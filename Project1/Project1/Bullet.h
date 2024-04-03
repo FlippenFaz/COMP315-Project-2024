@@ -2,7 +2,7 @@
   Created by Avesh Ramavather
 
   Edited by Avesh Ramavather (created),...
-
+  Jaedon Naidu
   [Add name above after editing]
 */
 #pragma once
@@ -18,7 +18,7 @@ public:
 	~Bullet();
 
 	// Function to create a bullet
-	void createBullet(SDL_Renderer* renderer, int xpos, int ypos);
+	void createBullet(SDL_Renderer* renderer, int xpos, int ypos, bool flip);
 
 	// Function to update bullet position
 	void update();
@@ -33,6 +33,7 @@ private:
 	// Member variables
 	int xpos;
 	int ypos;
+	bool flip;
 
 	bool checkActive;
 

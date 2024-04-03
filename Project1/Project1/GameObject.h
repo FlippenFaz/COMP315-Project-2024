@@ -1,6 +1,5 @@
 /*
   Edited by Avesh Ramavather (created),...
-
   [Add name above after editing]
 */
 
@@ -32,7 +31,6 @@ public:
 
 	// Change opacity function - mainly used to set the tone for a night vision level
 	void changeOpacity();
-
 
 private:
 

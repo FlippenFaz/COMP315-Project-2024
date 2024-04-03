@@ -178,7 +178,7 @@ void GameObject::move(const Uint8* currentKeyStates)
             if (bullet == nullptr)
             {
                 bullet = new Bullet();
-                bullet->createBullet(this->renderer, this->xpos, this->ypos);
+                bullet->createBullet(this->renderer, this->xpos, this->ypos, flip);
             }
         }
     }

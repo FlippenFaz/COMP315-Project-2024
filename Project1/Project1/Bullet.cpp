@@ -2,7 +2,7 @@
   Created by Avesh Ramavather
 
   Edited by Avesh Ramavather (created),...
-
+  Jaedon Naidu
   [Add name above after editing]
 */
 
@@ -10,6 +10,7 @@
 #include "Bullet.h"
 #include "TextureManager.h"
 #include <iostream>
+#include "GameObject.h"
 
 Bullet::Bullet()
 {
@@ -21,7 +22,7 @@ Bullet::~Bullet()
 
 }
 
-void Bullet::createBullet(SDL_Renderer* renderer, int xpos, int ypos)
+void Bullet::createBullet(SDL_Renderer* renderer, int xpos, int ypos, bool flip)
 {
 	// Load texture for bullet
 	objTexture = TextureManager::LoadTexture("assets/Bullets/1.png", renderer);
@@ -29,6 +30,7 @@ void Bullet::createBullet(SDL_Renderer* renderer, int xpos, int ypos)
 	this->renderer = renderer;
 	this->xpos = xpos;
 	this->ypos = ypos;
+	this->flip = flip;
 
 	// Define source and destination rectangles for rendering
 	srcRect.h = 10;
@@ -36,7 +38,14 @@ void Bullet::createBullet(SDL_Renderer* renderer, int xpos, int ypos)
 	srcRect.x = 0;
 	srcRect.y = 0;
 
-	destRect.x = xpos + 128;
+	// If facing left bullet should spawn in a separate place
+	if(flip)
+	{
+		destRect.x = xpos + 50;
+	}else
+	{
+		destRect.x = xpos + 128;
+	}
 	destRect.y = ypos + 20;
 	destRect.h = srcRect.h;
 	destRect.w = srcRect.w;
@@ -48,10 +57,17 @@ void Bullet::createBullet(SDL_Renderer* renderer, int xpos, int ypos)
 void Bullet::update() 
 {
 	// Move bullet
-	destRect.x += 10;
+	if(flip)
+	{
+		destRect.x -= 10;
+	}else
+	{
+		destRect.x += 10;
+	}
+	
 
 	// Check if bullet is out of bounds
-	if (destRect.x >= 550)
+	if (destRect.x >= 550 || destRect.x <= -80)
 	{
 		checkActive = false;
 	}
