@@ -151,6 +151,7 @@ public:
 		return s;
 	}
 
+	//just counts the number of occurences of a character in a string
 	int countOccurrences(char c, string s) {
 		int count = 0;
 		for (auto u : s) {
@@ -159,6 +160,14 @@ public:
 			}
 		}
 		return count;
+	}
+
+	//We'd want to check if a user selection is correct so we'd need this
+	//For ABCD questions, this returns the letter name (that'll be easier cause the user will be shooting the letter name, not the actual option in text)
+	//For T/F questions, this returns "True" or "False"
+	string getCorrectAnswer()
+	{
+		return this->answer;
 	}
 
 	/*SAMPLE INPUT:

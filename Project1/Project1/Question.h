@@ -31,20 +31,30 @@ private:
 
 public:
 
+	//takes in a line as stored in the question textfiles
 	Question(string line)
 	{
 		
 	}
 
+	//initiliazes the fields once the values are extracted from the line in the constructor
 	void convert(int questionType, string question, string answer, string wrongAnswers[]) {
 
 	}
 
+	//a printout of the question and its options, as well as its correct answer, in a formatted string
 	string toString() {
 
 	}
 
+	//helper method to count occurrences of a character in a string
 	int countOccurrences(char c, string s) {
+		
+	}
+
+	//returns correct answer (either A, B, C, D or True, False)
+	string getCorrectAnswer()
+	{
 		
 	}
 };
