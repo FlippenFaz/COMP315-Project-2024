@@ -2,6 +2,7 @@
   Created by Jaedon Naidu
 
   Edited by Jaedon Naidu(created)
+  Edited by Jaedon Naidu(methods: constructor, convert, toString, countOccurences)
 
   [Add name above after editing]
 */
@@ -28,13 +29,81 @@ private:
 
 public:
 
+	//Constructor takes on a line in the following format, as stored in the textfiles:
+	//	<questionType>$<question>$<correctAnswer>$<incorrectAnswer(s)>
+	
+	//What we do in the constructor is extract the single line with delimiters into the constituent parts, before calling the convert() method to initialize the fields.
+	Question(string line) {
+		int questionType;
+		string question;
+		string answer;
+
+		int count = countOccurrences('$', line);
+		int pos;
+
+		//if there are five $ symbols then we have an ABCD question
+		if (count == 5) {
+
+			//the algorithm is to:
+			//	find the position of the $
+			//	store the section until the $ inside the relevant variable
+			//	erase the section, including the $, and start again
+			questionType = 0;
+			line.erase(0, 2);
+
+			pos = line.find('$');
+			question = line.substr(0, pos);
+			line.erase(0, pos + 1);
+
+			pos = line.find('$');
+			answer = line.substr(0, pos);
+			line.erase(0, pos + 1);
+
+			string wrongAnswers[3];
+			for (int i = 0; i < 2; i++) {
+				pos = line.find('$');
+				wrongAnswers[i] = line.substr(0, pos);
+				line.erase(0, pos + 1);
+			}
+			wrongAnswers[2] = line;
+
+			//we then call the convert method which initializes the attributes once the extraction from the line has taken place
+			convert(questionType, question, answer, wrongAnswers);
+		}
+
+		//if there are three $ symbols we have a T/F question
+		else if (count == 3) {
+
+			//we use the same algorithm:
+			//	find the position of the $
+			//	store the section until the $ inside the relevant variable
+			//	erase the section, including the $, and start again
+			questionType = 1;
+			line.erase(0, 2);
+
+			pos = line.find('$');
+			question = line.substr(0, pos);
+			line.erase(0, pos + 1);
+
+			pos = line.find('$');
+			answer = line.substr(0, pos);
+			line.erase(0, pos + 1);
+
+			string wrongAnswers[1];
+			wrongAnswers[0] = line;
+
+			//similarly, we now call convert
+			convert(questionType, question, answer, wrongAnswers);
+		}
+	}
+
 	/*parameters:   questionType: 0 means ABCD, 1 means T/F
 					question: the actual question
 					answer: the correct answer
 					wrongAnswers[]: an array (of either 3 elements for ABCD or an array of 1 element for T/F)
 	*/
 
-	Question(int questionType, string question, string answer, string wrongAnswers[]) {
+	void convert(int questionType, string question, string answer, string wrongAnswers[]) {
 		this->questionType = questionType;
 		this->question = question;
 		this->answer = answer;
@@ -82,27 +151,37 @@ public:
 		return s;
 	}
 
+	int countOccurrences(char c, string s) {
+		int count = 0;
+		for (auto u : s) {
+			if (c == u) {
+				count++;
+			}
+		}
+		return count;
+	}
+
 	/*SAMPLE INPUT:
-	Question* q = new Question(0, "What is 5+5?","10", ["4", "6", "8"]);
+		Question* q = new Question("0$What is a Juliet spy?$A female spy who seduces for her country$A female spy using \"actress\" as a cover$A woman tricked into being a spy$A male spy who dresses as a woman");
 
 	SAMPLE OUTPUT:
-	QUESTION TYPE: 0
-	QUESTION: What is 5+5?
-	CORRECT ANSWER: C
-	A: 6
-	B: 8
-	C: 10
-	D: 4
+		QUESTION TYPE: 0
+		QUESTION: What is a Juliet spy?
+		CORRECT ANSWER: D
+		A: A woman tricked into being a spy
+		B: A female spy using "actress" as a cover
+		C: A male spy who dresses as a woman
+		D: A female spy who seduces for her country
 
 	*/
 
 	/*SAMPLE INPUT:
-	Question* q = new Question(1, "True or False: 5+5 = 10?","True", ["False"]);
+		Question* q2 = new Question("1$True/False: Wild Bill Donovan was a famous spymaster seen in a popular series of 1930 movies.$False$True");
 
 	SAMPLE OUTPUT:
-	QUESTION TYPE: 1
-	QUESTION: True or False: 5+5 = 10?
-	CORRECT ANSWER: True
+		QUESTION TYPE: 1
+		QUESTION: True/False: Wild Bill Donovan was a famous spymaster seen in a popular series of 1930 movies.
+		CORRECT ANSWER: False
 
 	*/
 };

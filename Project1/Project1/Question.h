@@ -31,11 +31,20 @@ private:
 
 public:
 
-	Question(int questionType, string question, string answer, string wrongAnswers[]) {
+	Question(string line)
+	{
+		
+	}
+
+	void convert(int questionType, string question, string answer, string wrongAnswers[]) {
 
 	}
 
 	string toString() {
 
+	}
+
+	int countOccurrences(char c, string s) {
+		
 	}
 };
