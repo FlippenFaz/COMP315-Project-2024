@@ -1,8 +1,8 @@
 /*
-  Edited by Avesh Ramavather (created),...
+  Edited by Avesh Ramavather (created), Jaedon Naidu, 
 
   [Add name above after editing]
-  Jaedon Naidu
+  
 */
 
 #include <iostream>
@@ -135,7 +135,7 @@ void GameObject::move(const Uint8* currentKeyStates)
     }
     if (currentKeyStates[SDL_SCANCODE_DOWN])
     {
-        if (ypos <= 580)
+        if (ypos <= 590)
         {
             reachedTop = false;
             ypos += 5;
