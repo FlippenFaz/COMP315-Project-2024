@@ -7,6 +7,8 @@
 // Header file for the Question class
 #pragma once
 
+#include <string>
+
 class Question {
 private:
 
