@@ -24,9 +24,10 @@ Bullet::~Bullet()
 
 void Bullet::createBullet(SDL_Renderer* renderer, int xpos, int ypos, bool flip)
 {
+
 	// Load texture for bullet
 	objTexture = TextureManager::LoadTexture("assets/Bullets/1.png", renderer);
-
+	
 	this->renderer = renderer;
 	this->xpos = xpos;
 	this->ypos = ypos;
