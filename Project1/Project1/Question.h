@@ -8,6 +8,8 @@
 #pragma once
 
 #include <string>
+using namespace std;
+
 
 class Question {
 private:
@@ -30,7 +32,7 @@ private:
 public:
 
 	Question(int questionType, string question, string answer, string wrongAnswers[]) {
-	
+
 	}
 
 	string toString() {
