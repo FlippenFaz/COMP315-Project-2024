@@ -146,7 +146,7 @@ void GameObject::move(const Uint8* currentKeyStates)
     destRect.y = ypos;
 
     // Update the bullets position
-    for (std::vector<Bullet*>::iterator it = bullets.begin(); it < bullets.end();) {
+    for (std::vector<Bullet*>::iterator it = bullets.begin(); it != bullets.end();) {
         if (it == bullets.end()) {
             break;
         }
@@ -155,13 +155,12 @@ void GameObject::move(const Uint8* currentKeyStates)
         // If the bullet has exceeded its range - DESTROY IT!
         if (bulletPtr->checkActiveBullet() == false)
         {
-            bullets.erase(it);
-            it = bullets.begin();
+            it = bullets.erase(it);
+            //it = bullets.begin();
             //it--;
             delete bulletPtr;
             bulletPtr = nullptr;
-        }
-        if (it < bullets.end()) {
+        } else {
             it++;
         }
     }
