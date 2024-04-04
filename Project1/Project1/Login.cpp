@@ -1,7 +1,7 @@
 /*
  
   Edited by Avesh Ramavather (created),...
-
+  Jaedon Naidu
   [Add name above after editing]
 
 */
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <thread>
 
 // Rendering text
 RenderText* usernameText;
@@ -85,10 +86,22 @@ void Login::update()
 	}
 	
 	// If the user presses backspace, it clears their entire entry
+	//Edit: @jaedonnaidu: it's now able to backspace one character at a time
 	if (currentKeyStates[SDL_SCANCODE_BACKSPACE] != 0)
 	{
-		userInput.clear();
-		userInputText->updateText(this->renderer, userInput);
+		//don't allow to backspace if string is empty
+		if(userInput.length() > 0)
+		{
+			//erase a character
+			userInput.erase(userInput.length() - 1, 1);
+
+			//update the text
+			userInputText->updateText(this->renderer, userInput);
+
+			//use a small wait because a standard backspace key press takes around 200ms, so we wouldn't want one press to continue deleting characters
+			std::this_thread::sleep_for(std::chrono::milliseconds(200));
+		}
+		
 	}
 
 	// Press enter to continue to game if the username enetered is of the appropriate length
