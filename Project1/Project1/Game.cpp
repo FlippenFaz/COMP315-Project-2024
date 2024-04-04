@@ -10,12 +10,16 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "GameObject.h"
+#include "Login.h"
+#include "SDL_ttf.h"
 
 GameObject* player;
 GameObject* back;
 GameObject* overlay;
 
 SDL_Event Game::event;
+
+Login* login;
 
 // Constructor
 Game::Game()
@@ -65,6 +69,11 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 		isRunning = false;
 	}
 
+	// Creating login screen
+	login = new Login();
+	login->createLoginScreen("assets/login.png", renderer);
+	
+
 	// Creating game objects: 
 	
 	// Background 
@@ -97,7 +106,15 @@ void Game::handleEvents()
 // Update function definition
 void Game::update()
 {
-	player->update();
+	if (login != NULL && login->isActive())
+	{
+		login->update();
+	}
+	else
+	{
+		player->update();
+	}
+	
 }
 
 // Render function definition
@@ -105,10 +122,18 @@ void Game::render()
 {
 	SDL_RenderClear(renderer);
 	
-	back->render();
-	player->render();
-	// NIGHT VISION
-	//overlay->render();
+	if (login != NULL && login->isActive())
+	{
+		login->render();
+	}
+	else
+	{
+		back->render();
+		player->render();
+		// NIGHT VISION
+		//overlay->render();
+	}
+	
 	SDL_RenderPresent(renderer);
 }
 
