@@ -18,12 +18,14 @@
 #include <fstream>
 #include <thread>
 
+using namespace std;
+
 // Rendering text
 RenderText* usernameText;
 RenderText* userInputText;
 
 // User input
-std::string userInput = "";
+string userInput = "";
 
 // Event
 SDL_Event event;
@@ -60,9 +62,10 @@ void Login::createLoginScreen(const char* textureSheet, SDL_Renderer* renderer)
 	userInputText = new RenderText(600, 300, 110, renderer, userInput.c_str(), {0, 0, 0});
 
 	SDL_StartTextInput();
+	
 }
 
-// Method used to update th login screen
+// Method used to update the login screen
 void Login::update()
 {
 	// Get the state of the keyboard
@@ -99,7 +102,7 @@ void Login::update()
 			userInputText->updateText(this->renderer, userInput);
 
 			//use a small wait because a standard backspace key press takes around 200ms, so we wouldn't want one press to continue deleting characters
-			std::this_thread::sleep_for(std::chrono::milliseconds(200));
+			this_thread::sleep_for(chrono::milliseconds(200));
 		}
 		
 	}
@@ -109,19 +112,48 @@ void Login::update()
 		&& userInput.length() >= 3
 		&& userInput.length() <= 10)
 	{
-		// Used to open/create a text file in overwrite mode, use "std::ios::app" in the last parameter to append a text file
-		std::ofstream file("textfiles/LoginInfo.txt", std::ios::trunc);
 
-		// Adds username to a user login info textfile found at "textfiles/LoginInfo.txt"
-		file << userInput;
+		if(usernameExists(userInput))
+		{
+			userInput = "TAKEN";
+			userInputText->updateText(this->renderer, userInput);
+			this_thread::sleep_for(chrono::milliseconds(200));
+		}else if(userInput != "TAKEN")
+		{
+			// Used to open/create a text file in overwrite mode, use "std::ios::app" in the last parameter to append a text file
+			ofstream file("textfiles/LoginInfo.txt", ios::app);
 
-		file.close();
+			// Adds username to a user login info textfile found at "textfiles/LoginInfo.txt"
+			string outputString = userInput + "\n";
+			file << outputString;
 
-		// Sets the login screen to false;
-		Login::checkActive = false;
+			file.close();
+
+			// Sets the login screen to false;
+			Login::checkActive = false;
+		}
+		
 	}
 
 	
+}
+
+//edit: @jaedonnaidu: just checks if username already exists on system
+bool Login::usernameExists(string s){
+	ifstream file("textfiles/LoginInfo.txt");
+	string line;
+
+	if (file.is_open())
+	{
+		while (getline(file, line))
+		{
+			if (line == s)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }
 
 // Method to render the login screen

@@ -153,9 +153,6 @@
     <ClInclude Include="RenderText.h" />
     <ClInclude Include="TextureManager.h" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\..\..\..\..\OneDrive\Desktop\JAEDON\University\COMP315\Project\level1QuestionBank.txt" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

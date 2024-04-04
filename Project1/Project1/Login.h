@@ -1,7 +1,7 @@
 /*
  
   Edited by Avesh Ramavather (created),...
-
+  Jaedon Naidu
   [Add name above after editing]
 
 */
@@ -9,8 +9,11 @@
 #pragma once
 
 // Include necessary header files
+#include <string>
 #include "SDL.h"
 #include "SDL_image.h"
+
+using namespace std;
 
 class Login
 {
@@ -32,6 +35,9 @@ public:
 
 	// Method used to check if the login screen is still active
 	bool isActive();
+
+	//@jaedonnaidu: added to check if username already exists;
+	bool usernameExists(string s);
 
 private:
 	// Indicates if the login screen is still active
