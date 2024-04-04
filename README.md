@@ -4,6 +4,9 @@ Things to work on:
 - [ ] Level backgrounds, music & sound effects
 - [ ] Leaderboard
 - [ ] Login functionality (username & password to save things like high score)
+- [ ] home screen
+- [ ] intro sequence (when app starts)
+- [ ] app name & logo
 
 * When adding code to the repository, try and make a note with comments about what methods or classes and stuff you write
 * If multiple people work on the same file you can both have names at the top of files
