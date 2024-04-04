@@ -10,6 +10,7 @@
 #include "SDL.h"
 #include "Game.h"
 
+#include <iostream>
 
 int main(int argc, char* args[])
 {
@@ -31,7 +32,6 @@ int main(int argc, char* args[])
 	while (game->running())
 	{
 		frameStart = SDL_GetTicks();
-
 		game->handleEvents();
 		game->update();
 		game->render();
