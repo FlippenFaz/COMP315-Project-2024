@@ -74,7 +74,7 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 	login->createLoginScreen("assets/login.png", renderer);
 	
 
-	// Creating game objects: 
+	// Creating game objects:
 	
 	// Background 
 	back = new GameObject("assets/Gridlines.png", renderer, 0, 0, 1);
@@ -112,7 +112,9 @@ void Game::update()
 	}
 	else
 	{
+
 		player->update();
+
 	}
 	
 }
@@ -124,7 +126,9 @@ void Game::render()
 	
 	if (login != NULL && login->isActive())
 	{
+
 		login->render();
+
 	}
 	else
 	{
