@@ -90,6 +90,7 @@ void Login::update()
 					userInputText->updateText(this->renderer, userInput);
 				}
 				break;
+			}
 		}
 	}
 
