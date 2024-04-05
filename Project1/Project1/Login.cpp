@@ -36,8 +36,8 @@ SDL_Event event;
 bool exitflag;
 
 // Constructor
-Login::Login(){
-
+Login::Login(Game* g){
+	this->g = g;
 }
 
 // / Method used to create the login screen
@@ -221,4 +221,5 @@ Login::~Login()
 	delete usernameText;
 	delete userInputText;
 	delete warningText;
+	g->clean();
 }

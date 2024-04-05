@@ -1,6 +1,6 @@
 /*
   Edited by Avesh Ramavather (created),...
-
+  Jaedon Naidu (login events)
   [Add name above after editing]
 */
 
@@ -70,7 +70,7 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 	}
 
 	// Creating login screen
-	login = new Login();
+	login = new Login(this);
 	login->createLoginScreen("assets/login.png", renderer);
 	
 
@@ -97,7 +97,18 @@ void Game::handleEvents()
 	{
 	case SDL_QUIT:
 		isRunning = false;
+		delete(login);
 		break;
+
+	//@jaedonnaidu
+	//code to make sure the top right cross works even with login screen
+	case SDL_WINDOWEVENT:
+		if(event.window.event == SDL_WINDOWEVENT_CLOSE)
+		{
+			isRunning = false;
+			delete(login);
+			break;
+		}
 	default:
 		break;
 	}
