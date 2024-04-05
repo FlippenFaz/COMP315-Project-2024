@@ -97,7 +97,8 @@ void Game::handleEvents()
 	{
 	case SDL_QUIT:
 		isRunning = false;
-		delete(login);
+		delete(login); 
+		login = NULL;
 		break;
 
 	//@jaedonnaidu
@@ -107,6 +108,7 @@ void Game::handleEvents()
 		{
 			isRunning = false;
 			delete(login);
+			login = NULL;
 			break;
 		}
 	default:

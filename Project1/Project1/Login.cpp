@@ -221,5 +221,4 @@ Login::~Login()
 	delete usernameText;
 	delete userInputText;
 	delete warningText;
-	g->clean();
 }

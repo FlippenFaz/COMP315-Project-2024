@@ -19,8 +19,9 @@ void playVideo();
 int main(int argc, char* args[])
 {
 	//comment this out for coding so you don't have to watch this video play
-	playVideo();
-	this_thread::sleep_for(chrono::milliseconds(16000)); //replace this with the length of the video we end up using
+	//playVideo();
+	//this_thread::sleep_for(chrono::milliseconds(16000)); //replace this with the length of the video we end up using
+	// 
 	// Number of frames per second
 	const int FPS = 60;
 	// Amount of time each frame should take
