@@ -1,0 +1,14 @@
+@Author Avesh
+@Author Faran
+Source: N/A
+LEVEL 4 QUESTIONS
+0$What's the first thing a spy should do if they suddenly lose communication in space?$Initiate emergency protocols.$Activate distress signals$Perform a systems check while ignoring the emergency.$Attempt to call their headquarters for advice.
+0$How would a spy dodge being spotted by enemy spaceships?$Use evasive maneuvers to avoid detection.$Send out a beacon for help.$Rely on camouflage techniques.$Use invisibility technology.
+0$How does a spy determine weaknesses in an enemy spaceship's armor?$Analyze enemy communications.$Attempt hacking enemy systems.$Send distractions like dummy missiles.$Directly request for vulnerabilities.
+0$How do spies ensure secret meetings in space?$Establish encrypted communication.$Rendezvous at obscure locations.$Use Morse code through communication frequencies$Use stealth cloaking devices.
+0$How would a spy sabotage enemy space equipment discreetly?$Introduce subtle malfunctions.$Announce false sabotage plans.$Try to disable critical systems outright.$Sabotage equipment visibly.
+0$How do spies maintain secrecy during space missions?$Implement counter-surveillance techniques.$Share detailed plans on open channels.$Implement distractive counter-measures.$Cover your face and body.
+0$How do spies maintain cover identities?$Maintain consistent behavior.$Change appearances frequently.$Forge implausible documents.$Use variating accents.
+0$How can a spy use planetary movement during a mission?$Use gravitational assists for fuel efficiency.$Align movements with planetary positions for cover.$Hide behind planets to avoid detection.$Use planetary movement for camouflage.
+1$Spies often undergo psychological training to cope with the mental challenges of long missions.$True.$False.
+1$Spies in space missions are allowed to communicate freely with space stations about objectives.$False.$True.

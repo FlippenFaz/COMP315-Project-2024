@@ -153,6 +153,14 @@
     <ClInclude Include="RenderText.h" />
     <ClInclude Include="TextureManager.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="textfiles\Leaderboard.txt" />
+    <Text Include="textfiles\level1QuestionBank.txt" />
+    <Text Include="textfiles\level2QuestionBank.txt" />
+    <Text Include="textfiles\level3QuestionBank.txt" />
+    <Text Include="textfiles\level4QuestionBank.txt" />
+    <Text Include="textfiles\PlayerInfo.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

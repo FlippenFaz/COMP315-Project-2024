@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\TextFiles">
+      <UniqueIdentifier>{090e13b3-d567-4538-9373-c95f5381a7f5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -62,5 +65,25 @@
     <ClInclude Include="RenderText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="textfiles\Leaderboard.txt">
+      <Filter>Resource Files\TextFiles</Filter>
+    </Text>
+    <Text Include="textfiles\level1QuestionBank.txt">
+      <Filter>Resource Files\TextFiles</Filter>
+    </Text>
+    <Text Include="textfiles\PlayerInfo.txt">
+      <Filter>Resource Files\TextFiles</Filter>
+    </Text>
+    <Text Include="textfiles\level2QuestionBank.txt">
+      <Filter>Resource Files\TextFiles</Filter>
+    </Text>
+    <Text Include="textfiles\level3QuestionBank.txt">
+      <Filter>Resource Files\TextFiles</Filter>
+    </Text>
+    <Text Include="textfiles\level4QuestionBank.txt">
+      <Filter>Resource Files\TextFiles</Filter>
+    </Text>
   </ItemGroup>
 </Project>
