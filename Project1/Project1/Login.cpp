@@ -90,22 +90,27 @@ void Login::update()
 
 	// If the user presses backspace, it clears their entire entry
 	//Edit: @jaedonnaidu: it's now able to backspace one character at a time
+	//Edited: @Archan: added else statement, clears Warning with any key press, this is incase a user forgets to 
+	//					use Backspace, previously the warning would be included as part of the username
+	//                  ISSUE: doing this broke backspace clearing the warning, it still works to go back a character though
+	bool displayWarning = (userInput == "TOO SHORT" || userInput == "TAKEN");
 	if (currentKeyStates[SDL_SCANCODE_BACKSPACE] != 0)
 	{
 		//don't allow to backspace if string is empty
 		if (userInput.length() > 0)
 		{
 			//A backspace should erase the whole thing if the thing is a message we produced
-			if(userInput == "TOO SHORT" || userInput=="TAKEN")
+			if (userInput == "TOO SHORT" || userInput == "TAKEN")
 			{
 				userInput.erase(0, userInput.length());
 
-			//Otherwise a backspace should just erase a character
-			}else
+				//Otherwise a backspace should just erase a character
+			}
+			else
 			{
 				userInput.erase(userInput.length() - 1, 1);
 			}
-			
+
 
 			//update the text
 			userInputText->updateText(this->renderer, userInput);
@@ -115,10 +120,18 @@ void Login::update()
 		}
 
 	}
+	else {  //Archan: Comment out this else statement to revert back to Original Code
+
+		if (displayWarning) { //if theres a warning any input key clears it EXCEPT backspace(this isn't wokring as intended)
+			userInput.erase(0, userInput.length());
+			displayWarning = false; // reset
+		}
+	}
 
 	// Press enter to continue to game if the username enetered is of the appropriate length
 	if (currentKeyStates[SDL_SCANCODE_RETURN] != 0)
 	{
+
 		if (userInput.length() >= 3 && userInput.length() <= 10) {
 			if (usernameExists(userInput))
 			{
