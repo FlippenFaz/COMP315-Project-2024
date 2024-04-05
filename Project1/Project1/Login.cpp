@@ -12,11 +12,13 @@
 #include "SDL_image.h"
 #include "TextureManager.h"
 #include "RenderText.h"
+#include "Game.h"
 
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <thread>
+#include <windows.h>
 
 using namespace std;
 
@@ -31,10 +33,11 @@ string warningInput = "";
 
 // Event
 SDL_Event event;
+bool exitflag;
 
 // Constructor
-Login::Login(){
-
+Login::Login(Game* g){
+	this->g = g;
 }
 
 // / Method used to create the login screen
@@ -42,7 +45,7 @@ void Login::createLoginScreen(const char* textureSheet, SDL_Renderer* renderer)
 {
 	// Store renderer for the login screen
 	this->renderer = renderer;
-
+	exitflag = false;
 	// Load login screen texture
 	objTexture = TextureManager::LoadTexture(textureSheet, renderer);
 
@@ -156,7 +159,7 @@ void Login::update()
 	}
 	else
 	{
-		warningInput = "Start typing...";
+		warningInput = "START TYPING...";
 		displayWarning = true;
 		warningText->updateText(this->renderer, warningInput);
 	}
@@ -217,4 +220,5 @@ Login::~Login()
 	delete usernameText;
 	delete userInputText;
 	delete warningText;
+	g->clean();
 }

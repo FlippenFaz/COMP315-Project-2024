@@ -12,6 +12,7 @@
 #include <string>
 #include "SDL.h"
 #include "SDL_image.h"
+#include "Game.h"
 
 using namespace std;
 
@@ -19,7 +20,7 @@ class Login
 {
 public:
 	// Constructor
-	Login();
+	Login(Game* g);
 
 	// Destructor
 	~Login();
@@ -41,6 +42,8 @@ public:
 
 private:
 	// Indicates if the login screen is still active
+	Game* g;
+
 	bool checkActive = false;
 
 	// Texture for the login screen
