@@ -19,8 +19,10 @@
                 text: The actual words that you need to be displayed
                 color: The color of the text in which color = {255, 255, 255} is white and {0, 0, 0} is black following {R, G, B} colors
                        eg. You can pass in "{255, 255, 255}" without quotes to get the text color to be white
-*/ //int xpos, int ypos, int fontSize, SDL_Renderer* renderer, std::string text, SDL_Color color
-RenderText::RenderText(int xpos, int ypos, int fontSize, SDL_Renderer* renderer, std::string text, SDL_Color color)
+                width: A requirement for wrapping text, the width must be given for a text display, if its an input then parse 0
+                       if the actual width of the text exceeds the width specified then the text is wrapped
+*/
+RenderText::RenderText(int xpos, int ypos, int fontSize, SDL_Renderer* renderer, std::string text, SDL_Color color, int width)
 {
     // Initialize SDL_ttf
     TTF_Init();
@@ -28,11 +30,23 @@ RenderText::RenderText(int xpos, int ypos, int fontSize, SDL_Renderer* renderer,
     // Store the renderer
     this->renderer = renderer;
 
-    // Load the font
-    font = TTF_OpenFont("fonts/DeterminationMono.ttf", fontSize);
+    // Load the font by checking how many rows the text will be displayed on (Up to 3 rows)
+    // i.e The font is decreased to improve readability of the text when it is wrapped
+    if (std::string(text).length() * fontSize / 2 > width*2)
+    {
+        font = TTF_OpenFont("fonts/DeterminationMono.ttf", fontSize/3);
+    }
+    else if (std::string(text).length() * fontSize / 2 > width * 2)
+    {
+        font = TTF_OpenFont("fonts/DeterminationMono.ttf", fontSize/2);
+    }
+    else
+    {
+        font = TTF_OpenFont("fonts/DeterminationMono.ttf", fontSize);
+    }
 
     // Render text onto surface
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), color);
+    SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, text.c_str(), color, width);
 
     // Create texture from surface
     objTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
@@ -50,7 +64,7 @@ RenderText::RenderText(int xpos, int ypos, int fontSize, SDL_Renderer* renderer,
     // Set the destination of the rendered text
     destRect.x = xpos;
     destRect.y = ypos;
-    destRect.w = std::string(text).length()*fontSize/2;
+    destRect.w = width;
     destRect.h = fontSize;
 }
 
@@ -72,14 +86,14 @@ void RenderText::RenderTextOnScreen(SDL_Renderer* renderer)
     SDL_RenderCopy(renderer, objTexture, nullptr, &destRect);
 }
 
-
+// Used for inputting text
 void RenderText::updateText(SDL_Renderer* renderer, std::string text)
 {
     // Updating text
     this->text = text;
 
     // Render text onto surface
-    SDL_Surface* textSurface = TTF_RenderText_Solid(font, text.c_str(), color);
+    SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, text.c_str(), color, (text.length()) * fontSize / 2);
 
     // Create texture from surface
     SDL_DestroyTexture(objTexture);

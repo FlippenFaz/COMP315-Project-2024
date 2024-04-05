@@ -60,9 +60,9 @@ void Login::createLoginScreen(const char* textureSheet, SDL_Renderer* renderer)
 	checkActive = true;
 
 	// Create RenderText object for username display
-	usernameText = new RenderText(100, 300, 110, renderer, "Spy name:  ", {0 ,0 ,0});
-	userInputText = new RenderText(600, 300, 110, renderer, userInput.c_str(), {0, 0, 0});
-	warningText = new RenderText(600, 410, 50, renderer, warningInput.c_str(), {255, 0, 0});
+	usernameText = new RenderText(100, 300, 110, renderer, "Spy name:  ", {0 ,0 ,0}, 605);
+	userInputText = new RenderText(600, 300, 110, renderer, userInput.c_str(), {0, 0, 0}, 0);
+	warningText = new RenderText(600, 410, 50, renderer, warningInput.c_str(), {255, 0, 0}, 400);
 
 	SDL_StartTextInput();
 	
@@ -87,7 +87,6 @@ void Login::update()
 					userInputText->updateText(this->renderer, userInput);
 				}
 				break;
-			}
 		}
 	}
 

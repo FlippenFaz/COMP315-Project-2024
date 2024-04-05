@@ -19,7 +19,7 @@ class RenderText
 {
 public:
 	// Constructor
-	RenderText(int xpos, int ypos, int fontSize, SDL_Renderer* renderer, std::string text, SDL_Color color);
+	RenderText(int xpos, int ypos, int fontSize, SDL_Renderer* renderer, std::string text, SDL_Color color, int width);
 
 	// Destructor
 	~RenderText();
@@ -33,6 +33,9 @@ public:
 private:
 	// Size of the font
 	int fontSize;
+
+	// Initialized width
+	int width;
 
 	// Text for rendering
 	std::string text;
