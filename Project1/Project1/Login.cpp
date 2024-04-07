@@ -131,7 +131,6 @@ void Login::update()
 	//@Archan: Comment out this else statement to revert back to Original Code
 	//Edit: @aveshramavather: Fixed warning display
 	if (displayWarning) { //if theres a warning any input key clears it EXCEPT backspace(this isn't wokring as intended)
-			
 		warningInput.erase(0, warningInput.length());
 		warningText->updateText(this->renderer, warningInput);
 			
