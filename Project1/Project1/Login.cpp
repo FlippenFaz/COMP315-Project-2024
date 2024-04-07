@@ -63,9 +63,9 @@ void Login::createLoginScreen(const char* textureSheet, SDL_Renderer* renderer)
 	checkActive = true;
 
 	// Create RenderText object for username display
-	usernameText = new RenderText(100, 300, 110, renderer, "Spy name:  ", {0 ,0 ,0}, 605);
-	userInputText = new RenderText(600, 300, 110, renderer, userInput.c_str(), {0, 0, 0}, 0);
-	warningText = new RenderText(600, 410, 50, renderer, warningInput.c_str(), {255, 0, 0}, 400);
+	usernameText = new RenderText(80, 335, 50, renderer, "Spy name:  ", {0 ,0 ,0}, 300);
+	userInputText = new RenderText(515, 300, 110, renderer, userInput.c_str(), {0, 0, 0}, 0);
+	warningText = new RenderText(620, 460, 50, renderer, warningInput.c_str(), {255, 0, 0}, 400);
 
 	SDL_StartTextInput();
 	
@@ -92,6 +92,16 @@ void Login::update()
 				break;
 			}
 		}
+	}
+
+	if (userInput.length() == 10)
+	{
+		warningInput = "10 CHARS MAX";
+		warningText->updateText(this->renderer, warningInput);
+	}else
+	{
+		warningInput = "";
+		warningText->updateText(this->renderer, warningInput);
 	}
 
 	// If the user presses backspace, it clears their entire entry
@@ -138,6 +148,12 @@ void Login::update()
 		}
 		else if ((warningInput != "TAKEN") && (warningInput != "TOO SHORT") && currentKeyStates[SDL_SCANCODE_RETURN] != 0)
 		{
+			//@jaedonnaidu: Welcome user
+			string welcomeMessage = "Welcome, " + userInput + "...";
+			SDL_ShowSimpleMessageBox(NULL, "Spy accepted", welcomeMessage.c_str(), NULL);
+			
+
+
 			// Used to open/create a text file in overwrite mode. Use ios::app to append.
 			ofstream file("textfiles/PlayerInfo.txt", ios::trunc);
 

@@ -71,7 +71,7 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 
 	// Creating login screen
 	login = new Login(this);
-	login->createLoginScreen("assets/login.png", renderer);
+	login->createLoginScreen("assets/loginBackground.png", renderer);
 	
 
 	// Creating game objects:
