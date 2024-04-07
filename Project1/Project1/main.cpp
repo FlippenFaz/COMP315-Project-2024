@@ -19,12 +19,17 @@ using namespace std;
 std::string workingdir();
 void playVideo();
 void killVideo(HWND handle);
+bool videoPlaying;
 
 int main(int argc, char* args[])
 {
 	//comment this out for coding so you don't have to watch this video play
+	videoPlaying = true;
 	playVideo();
-
+	while(videoPlaying)
+	{
+		
+	}
 	// 
 	// Number of frames per second
 	const int FPS = 60;
@@ -65,22 +70,10 @@ int main(int argc, char* args[])
 	return 0;
 }
 
-
-BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
-{
-	DWORD processId;
-	GetWindowThreadProcessId(hwnd, &processId);
-
-	if (lParam == processId)
-		PostMessage(hwnd, WM_CLOSE, 0, 0);
-	return TRUE;
-}
-
-
 //@jaedonnaidu
 //method to play a video
 void playVideo() {
-	TCHAR szPath[] = TEXT("assets\\IntroVideoCompressed.mp4"); //replace this with the actual video
+	TCHAR szPath[] = TEXT("assets\\Welcome, human.mp4"); //replace this with the actual video
 
 	HINSTANCE hRet = ShellExecute(
 		HWND_DESKTOP, //Parent window
@@ -89,16 +82,34 @@ void playVideo() {
 		NULL,         //Parameters
 		NULL,         //Default directory
 		SW_SHOW);     //How to open
-
+	auto start = std::chrono::high_resolution_clock::now();
 
 	//get coordinates to centralize video
 	int horizontal = GetSystemMetrics(SM_CXSCREEN);
 	int vertical = GetSystemMetrics(SM_CYSCREEN);
 
 	//a handle is an abstraction of the actual resource it points to
-	HWND handle = ::FindWindow(NULL, TEXT("Media Player"));
+	HWND handle;
+	handle = ::FindWindow(NULL, TEXT("Media Player"));
 	SetWindowPos(handle, 0, (horizontal-1280)/2, (vertical-720)/2, 1280,720, NULL );
 
+	if (!handle)
+	{
+		handle = ::FindWindow(NULL, TEXT("Windows Media Player"));
+		SetWindowPos(handle, 0, (horizontal - 1280) / 2, (vertical - 720) / 2, 1280, 720, NULL);
+	}
+
+	if (!handle)
+	{
+		handle = ::FindWindow(NULL, TEXT("Windows Media Player Legacy"));
+		SetWindowPos(handle, 0, (horizontal - 1280) / 2, (vertical - 720) / 2, 1280, 720, NULL);
+	}
+
+	if (!handle)
+	{
+		handle = ::FindWindow(NULL, TEXT("Windows Media Player Legacy"));
+		SetWindowPos(handle, 0, (horizontal - 1280) / 2, (vertical - 720) / 2, 1280, 720, NULL);
+	}
 
 	//if video could not be found
 	if ((LONG)hRet <= 32)
@@ -107,7 +118,26 @@ void playVideo() {
 		std::cout << "Current working directory: " << workingdir();
 	}
 
-	this_thread::sleep_for(chrono::milliseconds(10000)); //replace this with the length of the video we end up using
+	
+
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> elapsed = end - start;
+	
+	while((elapsed.count() < 93) && videoPlaying)
+	{
+		end = std::chrono::high_resolution_clock::now();
+		elapsed = end - start;
+		videoPlaying = true;
+		
+		const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+		if (currentKeyStates[SDL_SCANCODE_SPACE] != 0)
+		{
+			videoPlaying = false;
+		}
+		
+	}
+
+
 	killVideo(handle);
 }
 
@@ -116,6 +146,7 @@ void playVideo() {
 //Modified: @jaedonnaidu: taskkill wasn't working so this is a more direct way
 void killVideo(HWND handle) {
 	PostMessage(handle, WM_CLOSE, 0, 0);
+	videoPlaying = false;
 }
 
 //@jaedonnaidu
