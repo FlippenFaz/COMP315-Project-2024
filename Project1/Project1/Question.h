@@ -1,6 +1,6 @@
 /*
   Edited by Jaedon Naidu (created),...
-
+  Edited by Faran Steenkamp (answers now stored in vector as opposed to 4 seperate strings, also changed all function declarations to prototypes)
   [Add name above after editing]
 */
 
@@ -8,6 +8,7 @@
 #pragma once
 
 #include <string>
+#include <vector>
 using namespace std;
 
 
@@ -21,40 +22,26 @@ private:
 	string question;
 
 	//A, B, C or D for type 0, True or False for type 1
-	string answer;
+	string correctAnswer;
 
 	//for type 0. Randomly ordered from the 4 options given
-	string A;
-	string B;
-	string C;
-	string D;
+	vector<string> answers;
 
 public:
 
 	//takes in a line as stored in the question textfiles
-	Question(string line)
-	{
-		
-	}
+	Question(string line);
 
 	//initiliazes the fields once the values are extracted from the line in the constructor
-	void convert(int questionType, string question, string answer, string wrongAnswers[]) {
-
-	}
+	void convert(int questionType, string question, string correctAnswer, string wrongAnswers[]);
 
 	//a printout of the question and its options, as well as its correct answer, in a formatted string
-	string toString() {
-
-	}
+	string toString();
 
 	//helper method to count occurrences of a character in a string
-	int countOccurrences(char c, string s) {
-		
-	}
+	int countOccurrences(char c, string s);
 
-	//returns correct answer (either A, B, C, D or True, False)
-	string getCorrectAnswer()
-	{
-		
-	}
+	//Method to check if an answer is correct
+	//Added by Faran, replaced a getter function that returned the correct answer directly
+	bool checkAnswer(string ans);
 };
