@@ -154,6 +154,11 @@ void Game::render()
 	SDL_RenderPresent(renderer);
 }
 
+SDL_Window* Game::getWindow()
+{
+	return window;
+}
+
 // Clean function definition
 void Game::clean() 
 {

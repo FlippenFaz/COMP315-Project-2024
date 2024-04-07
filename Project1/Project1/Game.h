@@ -38,6 +38,8 @@ public:
 		return isRunning; 
 	}
 
+	SDL_Window* getWindow();
+
 	// Static event instance for handling events
 	static SDL_Event event;
 

@@ -10,19 +10,20 @@
 #include <iostream>
 #include <thread>
 #include <windows.h>
+#include <process.h>
 
 using namespace std;
 
+
 std::string workingdir();
 void playVideo();
-void killVideo();
+void killVideo(HWND handle);
 
 int main(int argc, char* args[])
 {
 	//comment this out for coding so you don't have to watch this video play
 	playVideo();
-	this_thread::sleep_for(chrono::milliseconds(93000)); //replace this with the length of the video we end up using
-	killVideo();
+
 	// 
 	// Number of frames per second
 	const int FPS = 60;
@@ -63,6 +64,18 @@ int main(int argc, char* args[])
 	return 0;
 }
 
+
+BOOL CALLBACK EnumWindowsProc(HWND hwnd, LPARAM lParam)
+{
+	DWORD processId;
+	GetWindowThreadProcessId(hwnd, &processId);
+
+	if (lParam == processId)
+		PostMessage(hwnd, WM_CLOSE, 0, 0);
+	return TRUE;
+}
+
+
 //@jaedonnaidu
 //method to play a video
 void playVideo() {
@@ -77,7 +90,14 @@ void playVideo() {
 		SW_SHOW);     //How to open
 
 
-	//system("TASKKILL /F /IM wmplayer.exe");
+	//get coordinates to centralize video
+	int horizontal = GetSystemMetrics(SM_CXSCREEN);
+	int vertical = GetSystemMetrics(SM_CYSCREEN);
+
+	//a handle is an abstraction of the actual resource it points to
+	HWND handle = ::FindWindow(NULL, TEXT("Media Player"));
+	SetWindowPos(handle, 0, (horizontal-1280)/2, (vertical-720)/2, 1280,720, NULL );
+
 
 	//if video could not be found
 	if ((LONG)hRet <= 32)
@@ -85,14 +105,16 @@ void playVideo() {
 		std::cout << "cannot find file";
 		std::cout << "Current working directory: " << workingdir();
 	}
+
+	this_thread::sleep_for(chrono::milliseconds(10000)); //replace this with the length of the video we end up using
+	killVideo(handle);
 }
 
 //@Faran
 //Method to kill most common video players
-void killVideo() {
-	system("TASKKILL /F /IM Microsoft.Media.Player.exe");
-	system("TASKKILL /F /IM wmplayer.exe");
-	system("TASKKILL /F /IM vlc.exe");
+//Modified: @jaedonnaidu: taskkill wasn't working so this is a more direct way
+void killVideo(HWND handle) {
+	PostMessage(handle, WM_CLOSE, 0, 0);
 }
 
 //@jaedonnaidu
