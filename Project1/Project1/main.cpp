@@ -15,12 +15,14 @@ using namespace std;
 
 std::string workingdir();
 void playVideo();
+void killVideo();
 
 int main(int argc, char* args[])
 {
 	//comment this out for coding so you don't have to watch this video play
 	playVideo();
-	this_thread::sleep_for(chrono::milliseconds(93000)); //replace this with the length of the video we end up using
+	this_thread::sleep_for(chrono::milliseconds(5000)); //replace this with the length of the video we end up using
+	killVideo();
 	// 
 	// Number of frames per second
 	const int FPS = 60;
@@ -83,6 +85,14 @@ void playVideo() {
 		std::cout << "cannot find file";
 		std::cout << "Current working directory: " << workingdir();
 	}
+}
+
+//@Faran
+//Method to kill most common video players
+void killVideo() {
+	system("TASKKILL /F /IM Microsoft.Media.Player.exe");
+	system("TASKKILL /F /IM wmplayer.exe");
+	system("TASKKILL /F /IM vlc.exe");
 }
 
 //@jaedonnaidu
