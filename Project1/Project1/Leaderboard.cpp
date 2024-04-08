@@ -1,6 +1,7 @@
 /*
 
   Edited by Jaedon Naidu (created),...
+  Neo Kekana
   [Add name above after editing]
 
 */
@@ -58,16 +59,18 @@ void Leaderboard::createLeaderboardScreen(const char* textureSheet, SDL_Renderer
 	destRect.h = srcRect.h;
 	destRect.w = srcRect.w;
 
+	// Edit @NeoKekana
+	// Setting the leaderboard screen to false because the escape key wasn't responding, but I called update in the game class so that
+	// the input can be registered
 	// Set leaderboard screen as active
-	checkActive = true;
+	checkActive = false;
 
 	// Create RenderText objects. We'll need 10 for each of username and score, since we want all of these to be on screen at the same time
-	for(int i=0; i<10; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		leaderboardUsernameText[i] = new RenderText(175, 100 + i*59, 50, renderer, "TestScore", { 0 ,0 ,0 }, 300);
-		scoreText[i] = new RenderText(565, 100+ i*59, 50, renderer, "TestScore", { 0 ,0 ,0 }, 300);
+		leaderboardUsernameText[i] = new RenderText(175, 100 + i * 59, 50, renderer, "TestScore", { 0 ,0 ,0 }, 300);
+		scoreText[i] = new RenderText(565, 100 + i * 59, 50, renderer, "TestScore", { 0 ,0 ,0 }, 300);
 	}
-	
 	
 
 }

@@ -24,12 +24,12 @@ bool videoPlaying;
 int main(int argc, char* args[])
 {
 	//comment this out for coding so you don't have to watch this video play
-	videoPlaying = true;
+	/*videoPlaying = true;
 	playVideo();
 	while(videoPlaying)
 	{
 		
-	}
+	}*/
 	// 
 	// Number of frames per second
 	const int FPS = 60;
