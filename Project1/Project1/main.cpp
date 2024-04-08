@@ -123,7 +123,7 @@ void playVideo() {
 	auto end = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> elapsed = end - start;
 	
-	while((elapsed.count() < 3) && videoPlaying)
+	while((elapsed.count() < 93) && videoPlaying)
 	{
 		end = std::chrono::high_resolution_clock::now();
 		elapsed = end - start;
