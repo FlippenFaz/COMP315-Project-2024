@@ -10,7 +10,7 @@
 // Include necessary header files
 #include "SDL.h"
 #include "SDL_image.h"
-
+#include <string>
 class Game
 {
 public:
@@ -38,7 +38,11 @@ public:
 		return isRunning; 
 	}
 
+	void setGameState(std::string str);
+
 	SDL_Window* getWindow();
+
+
 
 	// Static event instance for handling events
 	static SDL_Event event;
@@ -53,4 +57,10 @@ private:
 
 	// SDL renderer instance for rendering graphics
 	SDL_Renderer* renderer;
+
+	/*VALUES OF GAMESTATE USED SO FAR:
+	login
+	leaderboard
+	level 1*/
+	std::string gameState;
 };

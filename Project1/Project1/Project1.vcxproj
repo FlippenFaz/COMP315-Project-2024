@@ -139,6 +139,7 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="Leaderboard.cpp" />
     <ClCompile Include="Login.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Question.cpp" />
@@ -149,6 +150,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="Leaderboard.h" />
     <ClInclude Include="Login.h" />
     <ClInclude Include="Question.h" />
     <ClInclude Include="RenderText.h" />

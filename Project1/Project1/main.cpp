@@ -42,7 +42,7 @@ int main(int argc, char* args[])
 	// Creating an instance of the game
 	Game* game;
 	game = new Game();
-
+	game->setGameState("login");
 	game->initialize("Test Run", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1280, 720, false);//make it true for the real thing to hide video player once done playing
 
 	// Keeps the game running until an intervention occurs
@@ -123,7 +123,7 @@ void playVideo() {
 	auto end = std::chrono::high_resolution_clock::now();
 	std::chrono::duration<double> elapsed = end - start;
 	
-	while((elapsed.count() < 93) && videoPlaying)
+	while((elapsed.count() < 3) && videoPlaying)
 	{
 		end = std::chrono::high_resolution_clock::now();
 		elapsed = end - start;

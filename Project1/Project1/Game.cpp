@@ -12,6 +12,7 @@
 #include "GameObject.h"
 #include "Login.h"
 #include "SDL_ttf.h"
+#include "Leaderboard.h"
 
 GameObject* player;
 GameObject* back;
@@ -20,6 +21,7 @@ GameObject* overlay;
 SDL_Event Game::event;
 
 Login* login;
+Leaderboard* leaderboard;
 
 // Constructor
 Game::Game()
@@ -72,6 +74,10 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 	// Creating login screen
 	login = new Login(this);
 	login->createLoginScreen("assets/loginBackground.png", renderer);
+
+	//Creating a leaderboard
+	leaderboard = new Leaderboard(this);
+	leaderboard->createLeaderboardScreen("assets/leaderboard.png", renderer);
 	
 
 	// Creating game objects:
@@ -82,7 +88,7 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 	// Player
 	player = new GameObject("assets/idlet.png", renderer, 0, 0, 0);
 
-
+	gameState = "";
 	// DO NOT REMOVE - REQUIRED FOR THE NIGHT VISION LEVEL
 	//overlay = new GameObject("assets/night_vision/GRN.bmp", renderer, 0, 0, 2);
 	
@@ -119,15 +125,25 @@ void Game::handleEvents()
 // Update function definition
 void Game::update()
 {
-	if (login != NULL && login->isActive())
+	
+	//modified by @jaedonnaidu to work with the gameState variable
+	//leaderboard can currently be accessed with CTRL + L, from the login page
+	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
+
+	if(gameState == "level 1")
 	{
+		player->update();
+	}
+	else if (login != NULL && login->isActive() || (gameState == "login"))
+	{
+		login->setActive(true);
 		login->update();
 	}
-	else
+
+	else if ((leaderboard != NULL && leaderboard->isActive()) || (gameState == "leaderboard"))
 	{
-
-		player->update();
-
+		leaderboard->setActive(true);
+		leaderboard->update();
 	}
 	
 }
@@ -143,7 +159,12 @@ void Game::render()
 		login->render();
 
 	}
-	else
+	else if (leaderboard != NULL && leaderboard->isActive())
+	{
+
+		leaderboard->render();
+
+	}else
 	{
 		back->render();
 		player->render();
@@ -152,6 +173,16 @@ void Game::render()
 	}
 	
 	SDL_RenderPresent(renderer);
+
+
+	/*VALUES OF GAMESTATE USED SO FAR:
+	login
+	leaderboard
+	level 1*/
+}
+void Game::setGameState(string str)
+{
+	gameState = str;
 }
 
 SDL_Window* Game::getWindow()

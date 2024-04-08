@@ -77,6 +77,15 @@ void Login::update()
 	// Get the state of the keyboard
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
+
+
+	if ((currentKeyStates[SDL_SCANCODE_L] != 0) && ( (currentKeyStates[SDL_SCANCODE_LCTRL] != 0)||(currentKeyStates[SDL_SCANCODE_RCTRL] != 0) ))
+	{
+		g->setGameState("leaderboard");
+		this->setActive(false);
+
+	}
+
 	// Ensures that the user can enter at most 10 characters for their name
 	if (userInput.length() < 10)
 	{
@@ -163,6 +172,7 @@ void Login::update()
 			file.close();
 
 			// Sets the login screens active status to false
+			g->setGameState("level 1");
 			Login::checkActive = false;
 		}
 	}
@@ -190,6 +200,9 @@ void Login::update()
 *				name$level 1 score$level 2 score$level 3 score$level 4 score$total score$(optional? total time)
 * 
 */
+
+//we'll maintain this leaderboard constantly sorted by total score. That way outputting to leaderboard is easy and it
+//maintains the look of a 'leaderboard'. So when we insert a player's name, we have to do the work of figuring out where it goes.
 bool Login::usernameExists(string s){
 	ifstream file("textfiles/Leaderboard.txt");
 	string line;
@@ -228,6 +241,12 @@ void Login::render()
 bool Login::isActive()
 {
 	return checkActive;
+}
+
+//Method to set login to be active or not
+void Login::setActive(bool b)
+{
+	checkActive = b;
 }
 
 // Destructor

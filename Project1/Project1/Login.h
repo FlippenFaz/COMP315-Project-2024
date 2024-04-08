@@ -37,6 +37,8 @@ public:
 	// Method used to check if the login screen is still active
 	bool isActive();
 
+	void setActive(bool b);
+
 	//@jaedonnaidu: added to check if username already exists;
 	bool usernameExists(string s);
 
