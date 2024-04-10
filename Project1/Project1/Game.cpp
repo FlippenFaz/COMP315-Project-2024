@@ -1,6 +1,7 @@
 /*
   Edited by Avesh Ramavather (created),...
   Jaedon Naidu (login events)
+  Neo Kekana (debugger)
   [Add name above after editing]
 */
 
@@ -23,10 +24,11 @@ SDL_Event Game::event;
 Login* login;
 Leaderboard* leaderboard;
 
+
 // Constructor
 Game::Game()
 {
-
+	gameState = "";
 }
 
 // Destructor
@@ -78,6 +80,7 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 	//Creating a leaderboard
 	leaderboard = new Leaderboard(this);
 	leaderboard->createLeaderboardScreen("assets/leaderboard.png", renderer);
+	leaderboard->update();
 	
 
 	// Creating game objects:
@@ -88,7 +91,7 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 	// Player
 	player = new GameObject("assets/idlet.png", renderer, 0, 0, 0);
 
-	gameState = "";
+	// gameState = "";
 	// DO NOT REMOVE - REQUIRED FOR THE NIGHT VISION LEVEL
 	//overlay = new GameObject("assets/night_vision/GRN.bmp", renderer, 0, 0, 2);
 	
@@ -133,6 +136,39 @@ void Game::update()
 	if(gameState == "level 1")
 	{
 		player->update();
+		// Edit @NeoKekana
+		// Allow the user to check the leaderboard in game (need to have it as a pause function)
+		/*if ((currentKeyStates[SDL_SCANCODE_L] != 0) && ((currentKeyStates[SDL_SCANCODE_LCTRL] != 0) || (currentKeyStates[SDL_SCANCODE_RCTRL] != 0)))
+		{
+			setGameState("leaderboard");
+			leaderboard->setActive(true);
+
+		}*/
+
+		if (currentKeyStates[SDL_SCANCODE_ESCAPE] != 0)
+		{
+			string quitMessage = "GO BACK TO LOGIN SCREEN?";
+			const SDL_MessageBoxButtonData buttons[] = {
+				{ SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 1, "OK" },
+				{ SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT, 0, "Cancel" }
+			};
+			const SDL_MessageBoxData messageboxdata = {
+				SDL_MESSAGEBOX_INFORMATION,
+				NULL,
+				"Quit?",
+				quitMessage.c_str(),
+				SDL_arraysize(buttons),
+				buttons,
+				NULL
+			};
+			int result = SDL_ShowMessageBox(&messageboxdata, &result);
+			if (result == 1) {
+				setGameState("login");
+				login->setActive(true);
+				login->update();
+			}
+
+		}
 	}
 	else if (login != NULL && login->isActive() || (gameState == "login"))
 	{
@@ -183,6 +219,13 @@ void Game::render()
 void Game::setGameState(string str)
 {
 	gameState = str;
+}
+
+// Edit @NeoKekana
+// A getter for the game state
+string Game::getGameState()
+{
+	return gameState;
 }
 
 SDL_Window* Game::getWindow()

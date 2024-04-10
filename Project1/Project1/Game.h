@@ -11,6 +11,8 @@
 #include "SDL.h"
 #include "SDL_image.h"
 #include <string>
+#include <string>
+
 class Game
 {
 public:
@@ -40,6 +42,9 @@ public:
 
 	void setGameState(std::string str);
 
+	std::string getGameState();
+
+
 	SDL_Window* getWindow();
 
 
@@ -63,4 +68,5 @@ private:
 	leaderboard
 	level 1*/
 	std::string gameState;
+
 };

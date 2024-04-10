@@ -2,6 +2,7 @@
  
   Edited by Avesh Ramavather (created),...
   Jaedon Naidu
+  Neo Kekana
   [Add name above after editing]
 
 */
@@ -172,7 +173,7 @@ void Login::update()
 			file.close();
 
 			// Sets the login screens active status to false
-			g->setGameState("level 1");
+			this->g->setGameState("level 1");
 			Login::checkActive = false;
 		}
 	}
