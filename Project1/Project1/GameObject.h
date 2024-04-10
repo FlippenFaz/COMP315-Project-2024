@@ -1,5 +1,5 @@
 /*
-  Edited by Avesh Ramavather (created),...
+  Edited by Avesh Ramavather (created), Daniel Hogg(added getters and setters for level classes access), 
   [Add name above after editing]
 */
 
@@ -31,6 +31,23 @@ public:
 
 	// Change opacity function - mainly used to set the tone for a night vision level
 	void changeOpacity();
+
+	//potential fix to back problem
+	void setObjTexture(const char* path);
+
+	//setter methods to set x and y positions for the level's classes to use
+	void setXPos(int XPos);
+
+	void setYPos(int YPos);
+
+	//setter and getter methods to get info about the bullets for level classes to determin if a question was answered
+	bool getBulletDestroyed();
+
+	int getBulletXPos();
+
+	int getBulletYPos();
+
+	void setBulletDestroyed();
 
 private:
 

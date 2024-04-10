@@ -1,5 +1,5 @@
 /*
-  Edited by Avesh Ramavather (created),...
+  Edited by Avesh Ramavather (created), Daniel(added level transition and tracking/swapping implementation)
 
   [Add name above after editing]
 */
@@ -10,12 +10,17 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "GameObject.h"
+#include "level.h"
+#include "levelTracker.h"
 
 GameObject* player;
 GameObject* back;
 GameObject* overlay;
 
 SDL_Event Game::event;
+
+levelTracker* lvlTracker;
+level* currentLevel;
 
 // Constructor
 Game::Game()
@@ -59,6 +64,9 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 
 		isRunning = true;
 
+		lvlTracker = new levelTracker();
+
+
 	}
 	else
 	{
@@ -97,7 +105,15 @@ void Game::handleEvents()
 // Update function definition
 void Game::update()
 {
+	//checks if the level needs to be changed
+	if (this->lvlTracker->flagChangedCheck()) {
+		delete this->currentLevel;
+		this->currentLevel = this->lvlTracker->interprateFlag();
+		this->currentLevel->setLevel(this->lvlTracker, back, player, renderer);
+	}
+	currentLevel->update();
 	player->update();
+	
 }
 
 // Render function definition
@@ -106,6 +122,7 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	
 	back->render();
+	//currentLevel->render();
 	player->render();
 	// NIGHT VISION
 	//overlay->render();
@@ -119,6 +136,7 @@ void Game::clean()
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
+	delete this->lvlTracker;
 
 	std::cout << "Game Cleaned" << std::endl;
 }

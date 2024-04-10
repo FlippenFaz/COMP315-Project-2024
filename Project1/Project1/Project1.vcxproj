@@ -138,6 +138,10 @@
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="level.cpp" />
+    <ClCompile Include="level1.cpp" />
+    <ClCompile Include="level2.cpp" />
+    <ClCompile Include="levelTracker.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Question.cpp" />
     <ClCompile Include="TextureManager.cpp" />
@@ -146,6 +150,10 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="level.h" />
+    <ClInclude Include="level1.h" />
+    <ClInclude Include="level2.h" />
+    <ClInclude Include="levelTracker.h" />
     <ClInclude Include="Question.h" />
     <ClInclude Include="TextureManager.h" />
   </ItemGroup>

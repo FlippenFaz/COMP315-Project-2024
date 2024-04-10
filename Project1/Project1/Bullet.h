@@ -1,7 +1,7 @@
 /*
   Created by Avesh Ramavather
 
-  Edited by Avesh Ramavather (created), Jaedon Naidu, 
+  Edited by Avesh Ramavather (created), Jaedon Naidu, Daniel Hogg(added simple getters), 
   
   [Add name above after editing]
 */
@@ -28,6 +28,11 @@ public:
 
 	// Function to check if bullet is active
 	bool checkActiveBullet();
+
+	//getters for level classes
+	int getXPos();
+
+	int getYPos();
 
 private:
 	// Member variables

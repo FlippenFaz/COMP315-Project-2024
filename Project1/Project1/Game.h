@@ -1,5 +1,5 @@
 /*
-  Edited by Avesh Ramavather (created),...
+  Edited by Avesh Ramavather (created),Daniel(added level transition and tracking/swapping implementation)
 
   [Add name above after editing]
 */
@@ -10,6 +10,8 @@
 // Include necessary header files
 #include "SDL.h"
 #include "SDL_image.h"
+#include "levelTracker.h"
+#include "level.h"
 
 class Game
 {
@@ -51,4 +53,8 @@ private:
 
 	// SDL renderer instance for rendering graphics
 	SDL_Renderer* renderer;
+
+	levelTracker* lvlTracker;
+	level* currentLevel;
+
 };

@@ -3,7 +3,7 @@
 
   [Add name above after editing]
 */
-
+//dynamically loads images
 // Include necessary header files
 #include "TextureManager.h"
 

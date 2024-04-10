@@ -1,7 +1,7 @@
 /*
   Created by Avesh Ramavather
 
-  Edited by Avesh Ramavather (created), Jaedon Naidu, 
+  //Edited by Avesh Ramavather (created), Jaedon Naidu, Daniel Hogg(added simple getters), 
   
   [Add name above after editing]
 */
@@ -84,4 +84,12 @@ bool Bullet::checkActiveBullet()
 {
 	// Return status of the bullet
 	return checkActive;
+}
+
+int Bullet::getXPos() {
+	return this->destRect.x;
+}
+
+int Bullet::getYPos() {
+	return this->destRect.y;
 }

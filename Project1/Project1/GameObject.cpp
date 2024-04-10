@@ -1,5 +1,5 @@
 /*
-  Edited by Avesh Ramavather (created), Jaedon Naidu, 
+  Edited by Avesh Ramavather (created), Jaedon Naidu, Daniel Hogg(added getters and setters),
 
   [Add name above after editing]
   
@@ -21,6 +21,11 @@ bool reachedBottom;
 bool reachedTop;
 bool reachedLeft;
 bool reachedRight;
+
+//for level classes(Daniel Hogg)
+bool bulletDestroyed;
+int bulletLastXPos;
+int bulletLastYPos;
 
 // Constructor definition
 GameObject::GameObject(const char* textureSheet, SDL_Renderer* renderer, int x, int y, int type)
@@ -212,8 +217,12 @@ void GameObject::move(const Uint8* currentKeyStates)
         // If the bullet has exceeded its range - DESTROY IT!
         if (bullet->checkActiveBullet() == false)
         {
+            bulletLastXPos = bullet->getXPos();
+            bulletLastYPos = bullet->getYPos();
             delete bullet;
             bullet = nullptr;
+            //used to determin if a question has been answered(Daniel Hogg)
+            bulletDestroyed = true;
         }
     }
 }
@@ -244,4 +253,34 @@ void GameObject::changeOpacity()
 
     // Set the opacity of the overlay (0 = fully transparent, 255 = fully opaque)
     SDL_SetTextureAlphaMod(objTexture, 125);
+}
+
+//simple getters and setters for the level classes
+void GameObject::setXPos(int XPos) {
+    xpos = XPos;
+}
+
+void GameObject::setYPos(int YPos) {
+    ypos = YPos;
+}
+
+bool GameObject::getBulletDestroyed(){
+    return bulletDestroyed;
+}
+
+int GameObject::getBulletXPos() {
+    return bulletLastXPos;
+}
+
+int GameObject::getBulletYPos() {
+    return bulletLastYPos;
+}
+
+void GameObject::setBulletDestroyed() {
+
+    bulletDestroyed = false;
+}
+
+void GameObject::setObjTexture(const char* path) {
+    this->objTexture = TextureManager::LoadTexture(path, renderer);
 }
