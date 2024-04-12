@@ -85,15 +85,15 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 
 	// Creating game objects:
 	
-	// Background 
-	back = new GameObject("assets/Gridlines.png", renderer, 0, 0, 1);
+	// Background Edited @Archan: Replaced gridline file with temp_Background. Not final, just testing out some stuff
+	back = new GameObject("assets/dndhddd.png", renderer, 0, 0, 1);
 
 	// Player
 	player = new GameObject("assets/idlet.png", renderer, 0, 0, 0);
 
 	// gameState = "";
 	// DO NOT REMOVE - REQUIRED FOR THE NIGHT VISION LEVEL
-	//overlay = new GameObject("assets/night_vision/GRN.bmp", renderer, 0, 0, 2);
+	overlay = new GameObject("assets/night_vision/GRN.bmp", renderer, 0, 0, 2);
 	
 }
 
@@ -205,7 +205,7 @@ void Game::render()
 		back->render();
 		player->render();
 		// NIGHT VISION
-		//overlay->render();
+		overlay->render();
 	}
 	
 	SDL_RenderPresent(renderer);

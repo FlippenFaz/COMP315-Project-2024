@@ -96,7 +96,7 @@ void GameObject::move(const Uint8* currentKeyStates)
     // Only if the character isn't on the boundary of what's in-bounds
     if (currentKeyStates[SDL_SCANCODE_RIGHT])
     {
-        if (xpos <= 700)
+        if (xpos <= 700)  //Collision boundary
         {
             flip = false;
             reachedLeft = false;

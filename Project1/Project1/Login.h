@@ -42,6 +42,9 @@ public:
 	//@jaedonnaidu: added to check if username already exists;
 	bool usernameExists(string s);
 
+	string nameSuggestor(string userInput);
+
+
 private:
 	// Indicates if the login screen is still active
 	Game* g;
