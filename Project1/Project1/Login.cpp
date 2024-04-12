@@ -220,7 +220,7 @@ string Login::nameSuggestor(string userInput) {
 	//Creates a name for the user incase they're struggling to create one
 	string username = userInput;
 	string suggestedName = "";
-	bool isLastCharCigit = false; 
+	bool isLastCharDigit = false; 
 	char temp = ' ';
 
 	if (username.length() >= 3 && username.length() <= 7) { //adding on a number to the name
@@ -239,7 +239,7 @@ string Login::nameSuggestor(string userInput) {
 		else { // last char is a number
 			temp = username[username.length()-1]; // keeping last digit 
 			//cout << temp;
-			isLastCharCigit = true;
+			isLastCharDigit = true;
 			username.pop_back();
 			username.pop_back();
 
@@ -250,11 +250,11 @@ string Login::nameSuggestor(string userInput) {
 	for (int i = 1; i <= 9; i++) {
 		username += to_string(i); 
 		
-		if (isLastCharCigit) {
+		if (isLastCharDigit) {
 			username += temp; //returning the original digit this had at the end
 		}
 		if (!usernameExists(username)) { //username is unique
-			isLastCharCigit = false;
+			isLastCharDigit = false;
 			return username;
 		}
 		else {
