@@ -75,7 +75,7 @@ GameObject::GameObject(const char* textureSheet, SDL_Renderer* renderer, int x, 
 // Destructor definition
 GameObject::~GameObject() 
 {
-
+    delete bullet;
 }
 
 

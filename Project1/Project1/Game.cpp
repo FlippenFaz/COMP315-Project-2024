@@ -34,7 +34,8 @@ Game::Game()
 // Destructor
 Game::~Game()
 {
-
+	delete login;
+	delete leaderboard;
 }
 
 // Initialization function definition
@@ -93,7 +94,7 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 
 	// gameState = "";
 	// DO NOT REMOVE - REQUIRED FOR THE NIGHT VISION LEVEL
-	overlay = new GameObject("assets/night_vision/GRN.bmp", renderer, 0, 0, 2);
+	//overlay = new GameObject("assets/night_vision/GRN.bmp", renderer, 0, 0, 2);
 	
 }
 
@@ -205,7 +206,7 @@ void Game::render()
 		back->render();
 		player->render();
 		// NIGHT VISION
-		overlay->render();
+		//overlay->render();
 	}
 	
 	SDL_RenderPresent(renderer);
