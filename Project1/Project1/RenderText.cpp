@@ -46,7 +46,7 @@ RenderText::RenderText(int xpos, int ypos, int fontSize, SDL_Renderer* renderer,
     }
 
     // Render text onto surface
-    SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, text.c_str(), color, width);
+    SDL_Surface* textSurface = TTF_RenderText_Blended_Wrapped(font, text.c_str(), color, width); //goes to next line
 
     // Create texture from surface
     objTexture = SDL_CreateTextureFromSurface(renderer, textSurface);

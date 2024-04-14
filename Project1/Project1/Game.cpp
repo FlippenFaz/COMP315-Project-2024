@@ -37,7 +37,8 @@ Game::Game()
 // Destructor
 Game::~Game()
 {
-
+	delete login;
+	delete leaderboard;
 }
 
 // Initialization function definition
@@ -87,8 +88,9 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 	
 	// Creating game objects:
 	
-	// Background 
-	back = new GameObject("assets/Gridlines.png", renderer, 0, 0, 1);
+	// Background Edited @Archan: Replaced gridline file with temp_Background. Not final, just testing out some stuff
+	back = new GameObject("assets/dndhddd.png", renderer, 0, 0, 1);
+
 	// Player
 	player = new GameObject("assets/idlet.png", renderer, 0, 0, 0);
 
