@@ -10,8 +10,10 @@
 // Include necessary header files
 #include "SDL.h"
 #include "SDL_image.h"
+#include <fstream>
 #include <string>
 #include <string>
+#include "Question.h"
 
 class Game
 {
@@ -33,6 +35,8 @@ public:
 
 	// Clean up resources before exiting
 	void clean();
+
+	vector<Question> readQuestionsFromFile(const string& filename);
 
 	// Check if the game is running
 	bool running() 

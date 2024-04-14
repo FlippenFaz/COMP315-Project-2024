@@ -14,6 +14,8 @@
 #include "Login.h"
 #include "SDL_ttf.h"
 #include "Leaderboard.h"
+#include "Question.h"
+#include "RenderText.h"
 
 GameObject* player;
 GameObject* back;
@@ -24,6 +26,7 @@ SDL_Event Game::event;
 Login* login;
 Leaderboard* leaderboard;
 
+RenderText* question;
 
 // Constructor
 Game::Game()
@@ -82,14 +85,17 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 	leaderboard->createLeaderboardScreen("assets/leaderboard.png", renderer);
 	leaderboard->update();
 	
-
 	// Creating game objects:
 	
 	// Background 
 	back = new GameObject("assets/Gridlines.png", renderer, 0, 0, 1);
-
 	// Player
 	player = new GameObject("assets/idlet.png", renderer, 0, 0, 0);
+
+	// @Neo the vector for the level 1 questions is initialized.
+	vector<Question> questions = readQuestionsFromFile("textfiles/level1QuestionBank.txt");
+	
+	/*question = new RenderText(0, 0, 50, renderer, questions[0].toString(), { 0 ,0 ,0 }, 300);*/
 
 	// gameState = "";
 	// DO NOT REMOVE - REQUIRED FOR THE NIGHT VISION LEVEL
@@ -165,8 +171,9 @@ void Game::update()
 			if (result == 1) {
 				setGameState("login");
 				login->setActive(true);
-				login->update();
+				render();
 			}
+
 
 		}
 	}
@@ -204,6 +211,9 @@ void Game::render()
 	{
 		back->render();
 		player->render();
+
+
+
 		// NIGHT VISION
 		//overlay->render();
 	}
@@ -244,3 +254,27 @@ void Game::clean()
 	std::cout << "Game Cleaned" << std::endl;
 }
 
+// @Neo Kekana 
+// function for reading question from the text file and creating question objects for each question. Each question object needs a render
+vector<Question> Game::readQuestionsFromFile(const string& filename) {
+	vector<Question> questions;
+
+	ifstream file(filename); // Open the file for reading
+	if (!file.is_open()) {
+		cerr << "Error: Could not open file " << filename << endl;
+		return questions;
+	}
+
+	string line;
+	while (getline(file, line)) {
+		// Skip lines that don't start with the 1 or 0
+		if (line[0] != '0' || line[0] != '1')
+			continue;
+		// Create Question object from the line
+		Question q(line);
+		questions.push_back(q);
+	}
+
+	file.close(); // Close the file
+	return questions;
+}

@@ -29,6 +29,8 @@ private:
 
 public:
 
+	Question();
+
 	//takes in a line as stored in the question textfiles
 	Question(string line);
 
@@ -38,10 +40,16 @@ public:
 	//a printout of the question and its options, as well as its correct answer, in a formatted string
 	string toString();
 
+//	vector<Question> readQuestionsFromFile(const string& filename);
+
 	//helper method to count occurrences of a character in a string
 	int countOccurrences(char c, string s);
 
 	//Method to check if an answer is correct
 	//Added by Faran, replaced a getter function that returned the correct answer directly
 	bool checkAnswer(string ans);
+
+	// Render the questions on screen.
+	void render();
 };
+

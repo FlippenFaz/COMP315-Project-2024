@@ -10,6 +10,7 @@
 
 #include "Question.h";
 #include <iostream>
+#include <fstream>
 #include <cstring>
 #include <string>
 #include <vector>
@@ -19,8 +20,12 @@
 using namespace std;
 
 
+
 //Constructor takes on a line in the following format, as stored in the textfiles:
 //	<questionType>$<question>$<correctAnswer>$<incorrectAnswer(s)>
+Question::Question() {
+
+}
 	
 //What we do in the constructor is extract the single line with delimiters into the constituent parts, before calling the convert() method to initialize the fields.
 Question::Question(string line) {
@@ -160,6 +165,8 @@ bool Question::checkAnswer(string inputAnswer)
 	return inputAnswer.compare(correctAnswer) == 0;
 }
 
+
+
 /*SAMPLE INPUT:
 	Question* q = new Question("0$What is a Juliet spy?$A female spy who seduces for her country$A female spy using \"actress\" as a cover$A woman tricked into being a spy$A male spy who dresses as a woman");
 
@@ -183,3 +190,8 @@ SAMPLE OUTPUT:
 	CORRECT ANSWER: False
 
 */
+
+//void Question::renderQuestions()
+//{
+//
+//}
