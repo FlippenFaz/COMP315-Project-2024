@@ -1,0 +1,24 @@
+@Author ArchanGowda
+@Author VashinNaidoo
+Source: My source, trust me bro
+LEVEL 3 QUESTIONS
+0$In the Combat manual it states a medical mercenary should always come equipped with what during operations.$Adrenaline shot med kit$Light reflective vest$MK2 Night Vision$A white flag
+0$Sometimes, a tool might look brilliant, but all you need is a hammer. Which tool would you choose to stealth fully breach a wall?$Ultra Laser cutter$Atomic door RAM$Sledgehammer$High explosive C4
+0$If stranded and you discover a river to get to find a settlement you need to travel upstream.$False$True
+0$Which of the following medicinal plant can be used to clean wounds if you are injured$Turmeric$Wolfsbane$Poison ivy$Pain bush
+0$You’re tasked to eliminate a target as fast and discreetly as possible, which animal venom/poison is best suited for this task.$Blue ringed octopus$wolf spiders$European adder$Fire salamander
+0$During covert operations, the tactical wall climbing rope requires which suitable knot$A figure 8 Knot$Standard shoelace knot$Texas rig knot$Slip knot
+0$Which weapon module would you choose to execute a close range stealth only assassination.$PLAS 16 Suppressor$American inc. Iron sight$Liberator Laser sight$Expanded Drum Mag
+0$The Spy Federation follows the Geneva Convention, which of the following stratagem is prohibited in covert operations.$Chemical and bacteriological weapons$Interstellar orbital bombardments$Out of country assassinations$Political tampering and manipulation
+0$Work from the shadows, a spy must choose his camouflage wisely. Choose the required equipment suited for this task$Low thermal ghillie suit$SOS scout Drone surveilance$Reversed Flight bomber jacket$M249 50 cal. Machinegun
+0$During night operations, which device would you use to traverse through the terrain to negate visibility obstructs$MK2 Night Vision$G63 Smoke Grenade$LA31 Grappling hook$M1A2 Abrams
+0$In cases of hypothermia what beverages should you avoid$Caffeine$Water$Orange juice$Hot chocolate
+0$Which of the following is considered a safe water source$Natural spring$Stagnant pond water$Frozen snow$Polluted river
+0$What first aid technique can be used if someone’s heart has stopped beating$CPR$Heimlich maneuver$Tourniquet$Apply ice
+0$Which of the following is not a common symptom of hypothermia$Coughing$Shivering$Weak pulse$Slurred speech
+0$If you smell buttered popcorn while alone in the South Asian wilderness what could it possibly be$Tiger urine$Lightning is about to strike$An elephant preparing to attack$Safe water source
+0$Incase of immediate capture a spy must activate the cyanide pill behind their molar to prevent sharing intelligence$True$False
+1$In the Spy Aviation Manuel, the statement “Danger close” refers to nearby hostiles approaching spy radar.$False$True
+1$Deviating from the operation objective is considered treason$True$False
+1$A method to locate the North Star to navigate during the night is to find the big dipper constellation$True$False
+1$What scent indicates that there may be a rain storm$Petrichor$Flowery scent$Cheese$Woody scent
