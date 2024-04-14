@@ -27,10 +27,12 @@ using namespace std;
 RenderText* usernameText;
 RenderText* userInputText;
 RenderText* warningText;
+RenderText* suggestionText; //Archan
 
 // User input
 string userInput = "";
 string warningInput = "";
+string suggestionInput = ""; //Archan
 
 // Event
 SDL_Event event;
@@ -67,6 +69,8 @@ void Login::createLoginScreen(const char* textureSheet, SDL_Renderer* renderer)
 	usernameText = new RenderText(80, 335, 50, renderer, "Spy name:  ", {0 ,0 ,0}, 300);
 	userInputText = new RenderText(515, 300, 110, renderer, userInput.c_str(), {0, 0, 0}, 0);
 	warningText = new RenderText(620, 460, 50, renderer, warningInput.c_str(), {255, 0, 0}, 400);
+	//  x  y  FONTsize  Colour   TextWidth
+	suggestionText = new RenderText(620, 560, 50, renderer, suggestionInput.c_str(), {255, 0, 0}, 400);
 
 	SDL_StartTextInput();
 	
@@ -103,11 +107,18 @@ void Login::update()
 			}
 		}
 	}
-
+	
+	//Edited: @Archan: added the Name suggestion text message
 	if (userInput.length() == 10)
 	{
 		warningInput = "10 CHARS MAX";
 		warningText->updateText(this->renderer, warningInput);
+
+		if (usernameExists(userInput)) {
+			suggestionInput = "Suggestion: " + nameSuggestor(userInput);
+			suggestionText->updateText(this->renderer, suggestionInput);
+		}
+			
 	}else
 	{
 		warningInput = "";
@@ -140,6 +151,7 @@ void Login::update()
 
 	//@Archan: Comment out this else statement to revert back to Original Code
 	//Edit: @aveshramavather: Fixed warning display
+	//Edit: @Archan: added a name suggestor method which uniquely creates usernames
 	if (displayWarning) { //if theres a warning any input key clears it EXCEPT backspace(this isn't wokring as intended)
 		warningInput.erase(0, warningInput.length());
 		warningText->updateText(this->renderer, warningInput);
@@ -149,11 +161,17 @@ void Login::update()
 	
 
 	// Press enter to continue to game if the username enetered is of the appropriate length
+	//Edited: @Archan: added a simple method to suggest avialable usernames
 	if (userInput.length() >= 3 && userInput.length() <= 10) {
 		if (usernameExists(userInput))
 		{
-			warningInput = "TAKEN";
+			warningInput = "Taken";
 			warningText->updateText(this->renderer, warningInput);
+			
+			//Archan: adding name suggestions
+			suggestionInput = "Suggestion: " + nameSuggestor(userInput);
+			suggestionText->updateText(this->renderer, suggestionInput); 
+
 		}
 		else if ((warningInput != "TAKEN") && (warningInput != "TOO SHORT") && currentKeyStates[SDL_SCANCODE_RETURN] != 0)
 		{
@@ -183,6 +201,10 @@ void Login::update()
 		warningInput = "TOO SHORT";
 		displayWarning = true;
 		warningText->updateText(this->renderer, warningInput);
+
+		//clearing Suggestion text : @Archan
+		suggestionInput = " ";
+		suggestionText->updateText(this->renderer, suggestionInput);
 	}
 	else
 	{
@@ -190,6 +212,58 @@ void Login::update()
 		displayWarning = true;
 		warningText->updateText(this->renderer, warningInput);
 	}
+
+}
+
+//Edited: @Archan: Added this method for name suggestions
+string Login::nameSuggestor(string userInput) {
+	//Creates a name for the user incase they're struggling to create one
+	string username = userInput;
+	string suggestedName = "";
+	bool isLastCharDigit = false; 
+	char temp = ' ';
+
+	if (username.length() >= 3 && username.length() <= 7) { //adding on a number to the name
+		suggestedName = username + "007";
+		if (!usernameExists(suggestedName)) { //suggestedName is unique
+			username = suggestedName;
+			return username;
+		}
+	}
+
+	if(username.length() == 10) { //max chars
+		if (!isdigit(username[username.length() - 1])) {  //last char isn't a Number
+			
+			username.pop_back(); //removes last char		
+		}
+		else { // last char is a number
+			temp = username[username.length()-1]; // keeping last digit 
+			//cout << temp;
+			isLastCharDigit = true;
+			username.pop_back();
+			username.pop_back();
+
+		}
+		
+	}
+	//appending name with numbers
+	for (int i = 1; i <= 9; i++) {
+		username += to_string(i); 
+		
+		if (isLastCharDigit) {
+			username += temp; //returning the original digit this had at the end
+		}
+		if (!usernameExists(username)) { //username is unique
+			isLastCharDigit = false;
+			return username;
+		}
+		else {
+			username.pop_back();
+			username.pop_back();
+		}
+	}
+
+	return "";
 
 }
 
@@ -236,6 +310,8 @@ void Login::render()
 	userInputText->RenderTextOnScreen(this->renderer);
 
 	warningText->RenderTextOnScreen(this->renderer);
+
+	suggestionText->RenderTextOnScreen(this->renderer);
 }
 
 // Method to check if login screen is active
