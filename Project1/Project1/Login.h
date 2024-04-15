@@ -2,6 +2,7 @@
  
   Edited by Avesh Ramavather (created),...
   Jaedon Naidu
+  Faran Steenkamp
   [Add name above after editing]
 
 */
@@ -52,6 +53,11 @@ public:
 
 
 private:
+
+	//@author: Faran
+	//Needs to be friend to be able to access login.renderer
+	friend int EventWatchForTyping(void* userdata, SDL_Event* event);
+
 	// Indicates if the login screen is still active
 	//Game* ga;
 

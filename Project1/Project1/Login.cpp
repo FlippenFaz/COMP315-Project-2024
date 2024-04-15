@@ -3,6 +3,7 @@
   Edited by Avesh Ramavather (created),...
   Jaedon Naidu
   Neo Kekana
+  Faran Steenkamp
   [Add name above after editing]
 
 */
@@ -40,6 +41,8 @@ string suggestionInput = ""; //Archan
 SDL_Event event;
 bool exitflag;
 
+int EventWatchForTyping(void* userdata, SDL_Event* event);
+
 // Constructor
 Login::Login(/*Game* g*/) {
 	//this->ga = g;
@@ -60,6 +63,8 @@ Login::Login(/*Game* g*/) {
 	suggestionText = new RenderText(620, 560, 50, renderer, suggestionInput.c_str(), { 255, 0, 0 }, 400);
 
 	SDL_StartTextInput();
+	//Add eventwatch for typign instead of emptying the queue looking for typing events
+	SDL_AddEventWatch(EventWatchForTyping, this);
 
 	setPlayerInvolved();
 }
@@ -98,6 +103,28 @@ Login::Login(/*Game* g*/) {
 	
 }*/
 
+//@Author: Faran
+//Main ody of code copied from whoever originally made the typing (Might've been Jaedon)
+//A method that will execute on events that are added to the queue, this prevents us removing events we don't want to remove, such as the close screen event
+int EventWatchForTyping(void *userdata, SDL_Event *event) {
+	// Ensures that the user can enter at most 10 characters for their name
+	Login* log = (Login*)(userdata);
+	if (userInput.length() < 10)
+	{
+		switch (event->type)
+		{
+		case SDL_TEXTINPUT:
+			// Checking if a character is being inputted
+			if (event->text.text[0] != '\0') {
+				userInput += event->text.text;
+				userInputText->updateText(log->renderer, userInput);
+			}
+			break;
+		}
+	}
+	return 1;
+}
+
 // Method used to update the login screen
 void Login::update()
 {
@@ -120,23 +147,6 @@ void Login::update()
 		//sets the level flag to the next level's level flag
 		tracker->setLevelFlag(1);
 
-	}
-
-	// Ensures that the user can enter at most 10 characters for their name
-	if (userInput.length() < 10)
-	{
-		while (SDL_PollEvent(&event)) {
-			switch (event.type)
-			{
-			case SDL_TEXTINPUT:
-				// Checking if a character is being inputted
-				if (event.text.text[0] != '\0') {
-					userInput += event.text.text;
-					userInputText->updateText(this->renderer, userInput);
-				}
-				break;
-			}
-		}
 	}
 	
 	//Edited: @Archan: added the Name suggestion text message
@@ -375,6 +385,8 @@ void Login::setBackground() {
 // Destructor
 Login::~Login()
 {
+	//Delete event watch so it's not still watching for events possible 
+	SDL_DelEventWatch(EventWatchForTyping, this);
 	delete usernameText;
 	delete userInputText;
 	delete warningText;
