@@ -29,6 +29,10 @@ using namespace std;
 RenderText* leaderboardUsernameText[10];
 RenderText* scoreText[10];
 
+// Saving data from textfile
+string usernamet[10];
+string scoret[10];
+
 // User input
 string userName = "";
 
@@ -46,6 +50,7 @@ Leaderboard::Leaderboard(/*Game* g*/) {
 		scoreText[i] = new RenderText(565, 100 + i * 59, 50, renderer, "TestScore", { 0 ,0 ,0 }, 300);
 	}
 
+	displayUsernames();
 	setPlayerInvolved();
 }
 
@@ -132,8 +137,10 @@ void Leaderboard::displayUsernames()
 			username = line.substr(0, pos);
 			line.erase(0, pos + 1);
 			score = getTotalUserScore(username);
-			leaderboardUsernameText[counter]->updateText(this->renderer, username);
-			scoreText[counter]->updateText(this->renderer, to_string(score));
+			//leaderboardUsernameText[counter]->updateText(this->renderer, username);
+			//scoreText[counter]->updateText(this->renderer, to_string(score));.
+			usernamet[counter] = username;
+			scoret[counter] = to_string(score);
 			counter++;
 		}
 
@@ -145,8 +152,14 @@ void Leaderboard::update()
 {
 	// Get the state of the keyboard
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-	displayUsernames();
-
+	//displayUsernames();
+	for (int i = 0; i < 10; i++)
+	{
+		leaderboardUsernameText[i]->updateText(this->renderer, usernamet[i]);
+		scoreText[i]->updateText(this->renderer, scoret[i]);
+		
+	}
+	
 	if (currentKeyStates[SDL_SCANCODE_ESCAPE] != 0)
 	{
 		
@@ -167,13 +180,14 @@ void Leaderboard::update()
 void Leaderboard::render()
 {
 	// Render the leaderboard screen texture
-	SDL_RenderCopy(this->renderer, objTexture, &srcRect, &destRect);
+	//SDL_RenderCopy(this->renderer, objTexture, &srcRect, &destRect);
 
 	// Render the leaderboard screen text
 	for(int i=0; i<10; i++)
 	{
 		leaderboardUsernameText[i]->RenderTextOnScreen(this->renderer);
 		scoreText[i]->RenderTextOnScreen(this->renderer);
+		
 	}
 	
 }

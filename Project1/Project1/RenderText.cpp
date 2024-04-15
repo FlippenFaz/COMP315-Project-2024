@@ -61,6 +61,9 @@ RenderText::RenderText(int xpos, int ypos, int fontSize, SDL_Renderer* renderer,
     // Store the font size
     this->fontSize = fontSize;
 
+    // Store the text to be displayed
+    this->text = text;
+
     // Set the destination of the rendered text
     destRect.x = xpos;
     destRect.y = ypos;
@@ -84,6 +87,7 @@ void RenderText::RenderTextOnScreen(SDL_Renderer* renderer)
 {
     // Render text on screen
     SDL_RenderCopy(renderer, objTexture, nullptr, &destRect);
+    
 }
 
 // Used for inputting text

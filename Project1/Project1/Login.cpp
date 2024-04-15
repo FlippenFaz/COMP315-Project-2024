@@ -31,6 +31,7 @@ RenderText* warningText;
 RenderText* suggestionText; //Archan
 
 // User input
+string spyNameText = "Spy name:  "; //@avesh
 string userInput = "";
 string warningInput = "";
 string suggestionInput = ""; //Archan
@@ -52,7 +53,7 @@ Login::Login(/*Game* g*/) {
 	destRect.h = srcRect.h;
 	destRect.w = srcRect.w;*/
 	// Create RenderText object for username display
-	usernameText = new RenderText(80, 335, 50, renderer, "Spy name:  ", { 0 ,0 ,0 }, 300);
+	usernameText = new RenderText(80, 335, 50, renderer, spyNameText.c_str(), {0 ,0 ,0}, 300);
 	userInputText = new RenderText(515, 300, 110, renderer, userInput.c_str(), { 0, 0, 0 }, 0);
 	warningText = new RenderText(620, 460, 50, renderer, warningInput.c_str(), { 255, 0, 0 }, 400);
 	//  x  y  FONTsize  Colour   TextWidth
@@ -100,6 +101,9 @@ Login::Login(/*Game* g*/) {
 // Method used to update the login screen
 void Login::update()
 {
+	//@avesh edit: change used to display static text
+	usernameText->updateText(renderer, spyNameText);
+
 	// Get the state of the keyboard
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
 
