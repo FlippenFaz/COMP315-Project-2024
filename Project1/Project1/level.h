@@ -21,6 +21,8 @@ protected:
 	levelTracker* tracker;
 	SDL_Renderer*  renderer;
 	GameObject* player;
+	GameObject* back;
+	bool playerInvolvmentStatus = true;
 
 	//still need to implement a transition method that gets called when a level ends
 
@@ -34,7 +36,9 @@ public:
 	//void setTracker(levelTracker* tracker);
 
 	//initializes important info required by all levels
-	void setLevel(levelTracker*& tracker, GameObject*& backGround, GameObject*& player, SDL_Renderer*& renderer);
+	void setLevel(levelTracker*& tracker, GameObject* backGround, GameObject*& player, SDL_Renderer*& renderer);
+
+	bool getPlayerInvolvmentStatus();
 
 	//override in derived classes(each level class)
 	//update position/other important variables of moving game objects specific to a level
@@ -50,7 +54,7 @@ public:
 
 	//override in derived classes(each level class)
 	// sets the back object in the game class 
-	virtual void setBackground(GameObject*& backGround);
+	virtual void setBackground();
 
 	//override in derived classes(each level class)
 	//checks if the level has ended by checking if questionsAnswered == 10
@@ -59,6 +63,8 @@ public:
 	//override in derived classes(each level class)
 	//checks if the bullets position when it was destroyed is an answer to a question
 	virtual void answeringQuestion();
+
+	virtual void setPlayerInvolved();
 
 };
 

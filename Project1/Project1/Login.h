@@ -16,11 +16,11 @@
 
 using namespace std;
 
-class Login
+class Login: public level
 {
 public:
 	// Constructor
-	Login(Game* g);
+	Login(/*Game* g*/);
 
 	// Destructor
 	~Login();
@@ -44,10 +44,16 @@ public:
 
 	string nameSuggestor(string userInput);
 
+	//@Daniel Hogg: added methods to work with level class
+
+	void setBackground();
+
+	void setPlayerInvolved();
+
 
 private:
 	// Indicates if the login screen is still active
-	Game* g;
+	//Game* ga;
 
 	bool checkActive = false;
 
@@ -58,5 +64,5 @@ private:
 	SDL_Rect srcRect, destRect;
 
 	// Renderer for rendering the login screen
-	SDL_Renderer* renderer;
+	//SDL_Renderer* renderer;
 };

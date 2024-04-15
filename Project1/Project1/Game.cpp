@@ -11,9 +11,9 @@
 #include "Game.h"
 #include "TextureManager.h"
 #include "GameObject.h"
-#include "Login.h"
+//#include "Login.h"
 #include "SDL_ttf.h"
-#include "Leaderboard.h"
+//#include "Leaderboard.h"
 #include "level.h"
 #include "levelTracker.h"
 
@@ -23,8 +23,8 @@ GameObject* overlay;
 
 SDL_Event Game::event;
 
-Login* login;
-Leaderboard* leaderboard;
+//Login* login;
+//Leaderboard* leaderboard;
 
 
 levelTracker* lvlTracker;
@@ -33,14 +33,14 @@ level* currentLevel;
 // Constructor
 Game::Game()
 {
-	gameState = "";
+	//gameState = "";
 }
 
 // Destructor
 Game::~Game()
 {
-	delete login;
-	delete leaderboard;
+	//delete login;
+	//delete leaderboard;
 }
 
 // Initialization function definition
@@ -83,6 +83,7 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 	}
 
 	// Creating login screen
+	/*
 	login = new Login(this);
 	login->createLoginScreen("assets/loginBackground.png", renderer);
 
@@ -90,6 +91,7 @@ void Game::initialize(const char* title, int xpos, int ypos, int width, int heig
 	leaderboard = new Leaderboard(this);
 	leaderboard->createLeaderboardScreen("assets/leaderboard.png", renderer);
 	leaderboard->update();
+	*/
 	
 
 	// Creating game objects:
@@ -115,6 +117,16 @@ void Game::handleEvents()
 	{
 	case SDL_QUIT:
 		isRunning = false;
+		break;
+	default:
+		break;
+	}
+
+	/*SDL_PollEvent(&event);
+	switch (event.type)
+	{
+	case SDL_QUIT:
+		isRunning = false;
 		delete(login); 
 		login = NULL;
 		break;
@@ -131,7 +143,7 @@ void Game::handleEvents()
 		}
 	default:
 		break;
-	}
+	}*/
 }
 
 // Update function definition
@@ -144,13 +156,15 @@ void Game::update()
 		this->currentLevel->setLevel(this->lvlTracker, back, player, renderer);
 	}
 	currentLevel->update();
-	player->update();
+	if (currentLevel->getPlayerInvolvmentStatus()) {
+		player->update();
+	}
 	
-	
+	/*
 	//modified by @jaedonnaidu to work with the gameState variable
 	//leaderboard can currently be accessed with CTRL + L, from the login page
 	const Uint8* currentKeyStates = SDL_GetKeyboardState(NULL);
-
+	
 	if(gameState == "level 1")
 	{
 		player->update();
@@ -162,7 +176,7 @@ void Game::update()
 			leaderboard->setActive(true);
 
 		}*/
-
+	/*
 		if (currentKeyStates[SDL_SCANCODE_ESCAPE] != 0)
 		{
 			string quitMessage = "GO BACK TO LOGIN SCREEN?";
@@ -199,7 +213,7 @@ void Game::update()
 		leaderboard->setActive(true);
 		leaderboard->update();
 	}
-	
+	*/
 }
 
 // Render function definition
@@ -208,10 +222,14 @@ void Game::render()
 	SDL_RenderClear(renderer);
 	
 	back->render();
-	//currentLevel->render();
-	player->render();
+	currentLevel->render();
+	if (currentLevel->getPlayerInvolvmentStatus()) {
+		player->render();
+	}
+	
 	// NIGHT VISION
 	//overlay->render();
+	/*
 	if (login != NULL && login->isActive())
 	{
 
@@ -230,7 +248,7 @@ void Game::render()
 		// NIGHT VISION
 		//overlay->render();
 	}
-	
+	*/
 	SDL_RenderPresent(renderer);
 
 
@@ -239,17 +257,17 @@ void Game::render()
 	leaderboard
 	level 1*/
 }
-void Game::setGameState(string str)
+/*void Game::setGameState(string str)
 {
 	gameState = str;
-}
+}*/
 
 // Edit @NeoKekana
 // A getter for the game state
-string Game::getGameState()
+/*string Game::getGameState()
 {
-	return gameState;
-}
+	//return gameState;
+}*/
 
 SDL_Window* Game::getWindow()
 {

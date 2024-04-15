@@ -4,20 +4,18 @@
 
 level2::level2() {}
 
-//broken
-void level2::setBackground(GameObject*& backGround) {
+void level2::setBackground() {
 	
-	backGround->setObjTexture("assets/lvl2TestBackground");
+	back->setObjTexture("assets/lvl2TestBackground.png");
 	
-	// *backGround = new GameObject("assets/lvl2TestBackground", this->renderer, 0, 0, 1);
 }
 
 void level2::levelEndCheck() {
-	if (questionsAnswered == 10) {
+	if (questionsAnswered == 2) {
 		//tells update function in game class to update the level
 		tracker->setFlagChanged(true);
 		//sets the level flag to the next level's level flag
-		tracker->setLevelFlag(2);
+		tracker->setLevelFlag(0);
 	}
 }
 

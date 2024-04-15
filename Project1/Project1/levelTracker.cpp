@@ -2,7 +2,7 @@
 //created by Daniel Hogg
 
 levelTracker::levelTracker() {
-	this->levelFlag = 2;
+	this->levelFlag = 0;
 	this->flagChanged = true;
 }
 
@@ -18,15 +18,14 @@ bool levelTracker::flagChangedCheck() {
 
 level* levelTracker::interprateFlag() {
 	if (levelFlag == 0) {
-		//main menue
-		//returns lvl2 object for now
-		level2* lvl2 = new  level2();
-		return lvl2;
+		//login
+		Login* login = new  Login();
+		return login;
 	}
 	else if (levelFlag == 1) {
 		//leader board
-		level2* lvl2 = new  level2();
-		return lvl2;
+		Leaderboard* leaderBoard = new  Leaderboard();
+		return leaderBoard;
 	}
 	else if (levelFlag == 2) {
 		// transition to level 1

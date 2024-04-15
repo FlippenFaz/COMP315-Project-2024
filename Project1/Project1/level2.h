@@ -24,7 +24,7 @@ public:
 	void setInitialPosPlayer(GameObject*& player);
 
 	//override in derived classes(each level class)
-	void setBackground(GameObject*& backGround);
+	void setBackground();
 
 	//override in derived classes(each level class)
 	void levelEndCheck();

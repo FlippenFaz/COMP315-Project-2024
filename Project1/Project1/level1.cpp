@@ -5,18 +5,14 @@
 level1::level1() {}
 
 //broken
-void level1::setBackground(GameObject*& backGround) {
+void level1::setBackground() {
 	
-	backGround->setObjTexture("assets/lvl1TestBackground");
+	back->setObjTexture("assets/lvl1TestBackground.png");
 	
-	//GameObject* temp = new GameObject("assets/lvl1TestBackground", this->renderer, 0, 0, 1);
-	//delete backGround;
-	//*backGround = GameObject("assets/lvl1TestBackground", this->renderer, 0, 0, 1);
-	//delete temp;
 }
 
 void level1::levelEndCheck() {
-	if (level::questionsAnswered == 10) {
+	if (level::questionsAnswered == 2) {
 		//tells update function in game class to update the level
 		level::tracker->setFlagChanged(true);
 		//sets the level flag to the next level's level flag
@@ -43,4 +39,8 @@ void level1::update() {
 		//sets it back to false
 		player->setBulletDestroyed();
 	}
+}
+
+void level1::setPlayerInvolved() {
+	this->playerInvolvmentStatus = true;
 }

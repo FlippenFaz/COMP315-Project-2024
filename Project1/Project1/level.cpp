@@ -23,13 +23,20 @@ void level::levelEndCheck() {
 	
 }
 
+bool level::getPlayerInvolvmentStatus() {
+	return playerInvolvmentStatus;
+}
+
 //having issues here with the pointers, feel free to help. particularly, issue with backGround which is a reference to the pointer, back, in the game class. Gets passed to setBackground
 //which is ment to then change back in game class to a new background but currently the screen is just black
-void level::setLevel(levelTracker*& trackerr, GameObject*& backGround, GameObject*& player, SDL_Renderer*& renderer) {
+void level::setLevel(levelTracker*& trackerr, GameObject* backGround, GameObject*& player, SDL_Renderer*& renderer) {
 	this->tracker = trackerr;
 	this->player = player;
+	this->back = backGround;
+	this->renderer = renderer;
 	setInitialPosPlayer(player);
-	setBackground(backGround);
+	setBackground();//new GameObject("assets/dndhddd.png", renderer, 0, 0, 1);
+	//setBackground(backGround);
 
 }
 
@@ -37,11 +44,16 @@ void level::setInitialPosPlayer(GameObject*& player) {
 
 }
 
-void level::setBackground(GameObject*& backGround) {
-
+void level::setBackground() {
+	
 }
 
 void level::answeringQuestion() {
 
 }
+
+void level::setPlayerInvolved() {
+
+}
+
 //method for updating the player score maybe

@@ -1,6 +1,8 @@
 #pragma once
 #include "level2.h"
 #include "level1.h"
+#include "Login.h"
+#include "Leaderboard.h"
 //created by Daniel Hogg
 // each level/screen will have its own class. Here, the levelTracker class keeps track of which level should currently be displayed using the levelFlags variable.
 //Based on the flag, a level's/screen's class can be initialised and returned.

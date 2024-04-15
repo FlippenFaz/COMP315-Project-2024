@@ -15,11 +15,11 @@
 
 using namespace std;
 
-class Leaderboard
+class Leaderboard: public level
 {
 public:
 	// Constructor
-	Leaderboard(Game* g);
+	Leaderboard(/*Game* g*/);
 
 	// Destructor
 	~Leaderboard();
@@ -43,9 +43,14 @@ public:
 
 	int getTotalUserScore(string username);
 
+	//@Daniel Hogg
+	void setBackground();
+
+	void setPlayerInvolved();
+
 private:
 	// Indicates if the leaderboard screen is still active
-	Game* g;
+	//Game* g;
 
 	bool checkActive = false;
 

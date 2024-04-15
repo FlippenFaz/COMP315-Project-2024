@@ -42,9 +42,9 @@ public:
 		return isRunning; 
 	}
 
-	void setGameState(std::string str);
+	//void setGameState(std::string str);
 
-	std::string getGameState();
+	//std::string getGameState();
 
 
 	SDL_Window* getWindow();
@@ -69,7 +69,7 @@ private:
 	login
 	leaderboard
 	level 1*/
-	std::string gameState;
+	//std::string gameState;
 
 
 	levelTracker* lvlTracker;

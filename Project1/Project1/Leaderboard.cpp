@@ -7,6 +7,7 @@
 */
 
 // Include necessary header files
+
 #include "Login.h"
 #include "SDL.h"
 #include "SDL_image.h"
@@ -14,6 +15,7 @@
 #include "RenderText.h"
 #include "Game.h"
 #include "Leaderboard.h"
+#include "GameObject.h"
 
 #include <iostream>
 #include <string>
@@ -36,12 +38,19 @@ string userName = "";
 bool Leaderboardexitflag;
 
 // Constructor
-Leaderboard::Leaderboard(Game* g) {
-	this->g = g;
+Leaderboard::Leaderboard(/*Game* g*/) {
+	//this->g = g;
+	for (int i = 0; i < 10; i++)
+	{
+		leaderboardUsernameText[i] = new RenderText(175, 100 + i * 59, 50, renderer, "TestScore", { 0 ,0 ,0 }, 300);
+		scoreText[i] = new RenderText(565, 100 + i * 59, 50, renderer, "TestScore", { 0 ,0 ,0 }, 300);
+	}
+
+	setPlayerInvolved();
 }
 
 // / Method used to create the login screen
-void Leaderboard::createLeaderboardScreen(const char* textureSheet, SDL_Renderer* renderer)
+/*void Leaderboard::createLeaderboardScreen(const char* textureSheet, SDL_Renderer* renderer)
 {
 	// Store renderer for the login screen
 	this->renderer = renderer;
@@ -73,7 +82,7 @@ void Leaderboard::createLeaderboardScreen(const char* textureSheet, SDL_Renderer
 	}
 	
 
-}
+}*/
 
 //method to get total score given the username, using the leaderboard textfile
 int Leaderboard::getTotalUserScore(string username)
@@ -140,8 +149,15 @@ void Leaderboard::update()
 
 	if (currentKeyStates[SDL_SCANCODE_ESCAPE] != 0)
 	{
-		checkActive = false;
-		this->g->setGameState("login");
+		
+		//@Daniel Hogg: tells the if statement in the game class to go into itself and changes the flag to login
+		//tells update function in game class to update the level to login
+		level::tracker->setFlagChanged(true);
+		//sets the level flag to the next level's level flag
+		tracker->setLevelFlag(0);
+		
+		//checkActive = false;
+		//this->g->setGameState("login");
 
 	}
 
@@ -172,6 +188,17 @@ void Leaderboard::setActive(bool b)
 {
 	checkActive = b;
 }
+
+void Leaderboard::setBackground() {
+
+	back->setObjTexture("assets/leaderboard.png");
+
+}
+
+void Leaderboard::setPlayerInvolved() {
+	this->playerInvolvmentStatus = false;
+}
+
 
 // Destructor
 Leaderboard::~Leaderboard()
