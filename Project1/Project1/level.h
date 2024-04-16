@@ -3,6 +3,7 @@
 //#include "levelTracker.h"
 #include "SDL.h"
 //created by Daniel Hogg
+//Edited by Faran Steenkamp (added virtual destructor)
 
 //each screen/level must extend level, every function in this class is needed in every level
 //feel free to add any additional functions that would be useful to be accessable by every level
@@ -29,6 +30,7 @@ protected:
 public:
 
 	level();
+	virtual ~level(); 
 
 	//used to increment questionsAnswered when an event occurs that signifys an answer has been given by the player
 	void incrementQuestionsAnswered();

@@ -6,6 +6,8 @@
 
 level::level() {};
 
+level::~level() {};
+
 void level::update() {
 
 }

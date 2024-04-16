@@ -385,7 +385,8 @@ void Login::setBackground() {
 // Destructor
 Login::~Login()
 {
-	//Delete event watch so it's not still watching for events possible 
+	//Delete event watch so it's not still watching for events possible
+	SDL_StopTextInput();
 	SDL_DelEventWatch(EventWatchForTyping, this);
 	delete usernameText;
 	delete userInputText;

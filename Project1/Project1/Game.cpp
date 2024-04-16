@@ -150,10 +150,11 @@ void Game::handleEvents()
 void Game::update()
 {
 	//checks if the level needs to be changed
-	if (this->lvlTracker->flagChangedCheck()) {
-		delete this->currentLevel;
-		this->currentLevel = this->lvlTracker->interprateFlag();
-		this->currentLevel->setLevel(this->lvlTracker, back, player, renderer);
+	if (lvlTracker->flagChangedCheck()) {
+		//cout << "Deleting level, should call a destructor" << endl;
+		delete currentLevel;
+		currentLevel = lvlTracker->interprateFlag();
+		currentLevel->setLevel(lvlTracker, back, player, renderer);
 	}
 	currentLevel->update();
 	if (currentLevel->getPlayerInvolvmentStatus()) {
@@ -281,7 +282,7 @@ void Game::clean()
 	SDL_DestroyWindow(window);
 	SDL_DestroyRenderer(renderer);
 	SDL_Quit();
-	delete this->lvlTracker;
+	delete lvlTracker;
 
 	std::cout << "Game Cleaned" << std::endl;
 }

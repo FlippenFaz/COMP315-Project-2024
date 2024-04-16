@@ -165,7 +165,7 @@ void Leaderboard::update()
 		
 		//@Daniel Hogg: tells the if statement in the game class to go into itself and changes the flag to login
 		//tells update function in game class to update the level to login
-		level::tracker->setFlagChanged(true);
+		tracker->setFlagChanged(true);
 		//sets the level flag to the next level's level flag
 		tracker->setLevelFlag(0);
 		
@@ -217,6 +217,14 @@ void Leaderboard::setPlayerInvolved() {
 // Destructor
 Leaderboard::~Leaderboard()
 {
-	delete[] leaderboardUsernameText;
-	delete[] scoreText;
+	//Arrays not declared with new, therefore deleting them is undefined behaviour, will automatically get deleted when This object falls out of scope
+	//Didn't cause errors before because we never actually called any destructors before (lol)
+	//delete[] leaderboardUsernameText;
+	//delete[] scoreText;
+	//We do need to delete the actual pointers we made though
+	for (int i = 0; i < 10; i++)
+	{
+		delete leaderboardUsernameText[i];
+		delete scoreText[i];
+	}
 }
